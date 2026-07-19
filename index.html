@@ -1,81 +1,489 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sridharan Portfolio</title>
-  <link rel="stylesheet" href="style.css">
-  <script defer src="script.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sridharan | BCA Graduate & Developer</title>
+    <!-- Modern Tech Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Color Palette & Custom Variable Tokens */
+        :root {
+            --bg-dark: #0b0f19;          /* Deep Slate Dark/Black background */
+            --card-bg: #131a26;          /* Charcoal dark layout cards */
+            --accent-teal: #00f2fe;      /* Sleek terminal teal accent color */
+            --text-white: #f8fafc;       /* Crisp white headings */
+            --text-muted: #94a3b8;       /* Subtle gray text for descriptions */
+            --border-color: #1e293b;     /* Border separating elements */
+        }
+
+        /* Global Adjustments */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-white);
+            line-height: 1.6;
+            padding-top: 80px; /* Spacer for fixed navigation */
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation Bar Layout */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(11, 15, 25, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            z-index: 1000;
+        }
+
+        .nav-logo {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            color: var(--accent-teal);
+            font-size: 1.1rem;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-teal);
+        }
+
+        /* Hero Elements */
+        .hero-section {
+            padding: 80px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .terminal-status {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent-teal);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 10px;
+            color: var(--text-white);
+        }
+
+        .hero-subtitle {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 25px;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin-bottom: 35px;
+        }
+
+        /* Custom Minimal Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-teal);
+            color: #000;
+        }
+
+        .btn-primary:hover {
+            background-color: #00d2da;
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.4);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--accent-teal);
+            border: 1px solid var(--accent-teal);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(0, 242, 254, 0.1);
+        }
+
+        /* Layout Content Sections */
+        .portfolio-section {
+            padding: 80px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section-tag {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent-teal);
+            font-size: 1rem;
+            margin-bottom: 35px;
+            text-transform: uppercase;
+        }
+
+        /* Grid Frameworks (About & Skills) */
+        .about-grid, .skills-grid, .contact-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+
+        @media (min-width: 768px) {
+            .about-grid, .contact-container { grid-template-columns: 1.5fr 1fr; }
+            .skills-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        .education-block {
+            margin-top: 30px;
+        }
+
+        .education-block h4, .about-sidebar h4, .skills-category h4 {
+            font-size: 1.1rem;
+            color: var(--text-white);
+            margin-bottom: 15px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .edu-item {
+            padding-left: 15px;
+            border-left: 2px solid var(--accent-teal);
+        }
+
+        .edu-title {
+            display: block;
+            font-weight: 600;
+            color: var(--text-white);
+        }
+
+        .edu-meta {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* Custom Text Badges */
+        .badge-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .badge {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+
+        .skills-list {
+            list-style: none;
+        }
+
+        .skills-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 10px;
+            color: var(--text-muted);
+        }
+
+        .skills-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--accent-teal);
+            font-size: 1.2rem;
+        }
+
+        /* Unified Main Project Card Styling */
+        .project-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 35px;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-teal);
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .project-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-white);
+        }
+
+        .project-link {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent-teal);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .project-description {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 25px;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .project-tech span {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--accent-teal);
+            background-color: rgba(0, 242, 254, 0.05);
+            padding: 4px 10px;
+            border-radius: 4px;
+        }
+
+        /* Form Styling & Terminal Contact Structure */
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .form-group label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .form-group input, .form-group textarea {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 12px;
+            color: var(--text-white);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-teal);
+        }
+
+        .social-links a {
+            color: var(--accent-teal);
+            text-decoration: none;
+        }
+
+        /* Footer Layout */
+        .portfolio-footer {
+            text-align: center;
+            padding: 40px 0;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+    </style>
 </head>
 <body>
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="content">
-      <h1 class="welcome">Welcome to My Portfolio</h1>
-      <h2 class="name">SRIDHARAN</h2>
-      <p class="tagline">Hey, I am Sridharan</p>
-      <h3 class="floating">SRIDHARAN</h3>
 
-      <div class="links">
-        <a href="https://github.com/sridharansridhar428-spec" target="_blank" class="btn">GitHub</a>
-        <a href="https://linkedin.com" target="_blank" class="btn">LinkedIn</a>
-        <a href="mailto:sridharan@example.com" class="btn">Email</a>
-        <a href="resume.pdf" download class="btn">Download Resume</a>
-        <a href="resume.pdf" download class="btn secondary">Download Resume</a>
-        <img src="images/profile.jpg" alt="Sridharan">
-      </div>
-    </div>
-  </section>
+    <!-- Navigation Header -->
+    <nav class="navbar">
+        <div class="nav-logo">[Sridharan]</div>
+        <div class="nav-links">
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
 
-  <!-- About Section -->
-  <section class="about">
-    <h2>About Me</h2>
-    <p>
-      I am a final-year BCA graduate from Annamalai University with hands-on
-      experience in Networking & Cybersecurity (Packet Tracer) and web development.
-      Currently interning at AITECHNOSKILL, I am passionate about building scalable
-      applications and pursuing MCA for advanced studies.
-    </p>
-  </section>
+    <main class="container">
+        <!-- Hero Section -->
+        <header class="hero-section">
+            <div class="terminal-status">➜ 0 % *{* [intro] *_* 100% remaining</div>
+            <h1 class="hero-title">Hey, I'm Sridharan</h1>
+            <h2 class="hero-subtitle">BCA Graduate across Web and Networking Systems</h2>
+            <p class="hero-description">
+                I enjoy building practical solutions across software layers. From backend web microservices to network configurations, I focus on building reliable and structured systems.
+            </p>
+            <div class="action-buttons">
+                <a href="#contact" class="btn btn-primary">Get in Touch</a>
+                <a href="#" class="btn btn-secondary">Download Resume</a>
+            </div>
+        </header>
 
-  <!-- Skills Section -->
-  <section class="skills">
-    <h2>Skills</h2>
-    <ul>
-      <li>Python</li>
-      <li>Java (Beginner)</li>
-      <li>SQL & Relational Databases</li>
-      <li>Flask Web Framework</li>
-      <li>AWS Basics</li>
-      <li>Networking & Cybersecurity</li>
-    </ul>
-  </section>
+        <!-- About / Professional Side Section -->
+        <section id="about" class="portfolio-section">
+            <h3 class="section-tag">// 01 . About Me</h3>
+            <div class="about-grid">
+                <div class="about-text">
+                    <p>I am a final-year BCA graduate from Annamalai University with hands-on experience in Networking & Cybersecurity (Packet Tracer) and web development. Currently interning at AITECHNOSKILL, I am passionate about building scalable applications and pursuing advanced technical tracks.</p>
+                    
+                    <div class="education-block">
+                        <h4>Education</h4>
+                        <div class="edu-item">
+                            <span class="edu-title">B.C.A (Bachelor of Computer Applications)</span>
+                            <span class="edu-meta">Annamalai University • Expected 2026</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="about-sidebar">
+                    <h4>Core Focus</h4>
+                    <div class="badge-container">
+                        <span class="badge">Web Development</span>
+                        <span class="badge">Backend APIs</span>
+                        <span class="badge">Flask Framework</span>
+                        <span class="badge">Python Systems</span>
+                        <span class="badge">Networking</span>
+                        <span class="badge">Cybersecurity Basics</span>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-  <!-- Projects Section -->
-  <section class="projects">
-    <h2>Projects</h2>
-    <div class="project">
-      <h3>Flask App with SendGrid</h3>
-      <p>Built and deployed a Flask application on Render with email integration.</p>
-      <a href="https://github.com/sridharansridhar428-spec" target="_blank">View on GitHub</a>
-    </div>
-    <div class="project">
-      <h3>Networking Labs</h3>
-      <p>Designed and simulated networks using Cisco Packet Tracer.</p>
-    </div>
-  </section>
+        <!-- Skills Section -->
+        <section id="skills" class="portfolio-section">
+            <h3 class="section-tag">// 02 . Technical Skillset</h3>
+            <div class="skills-grid">
+                <div class="skills-category">
+                    <h4>Languages & Frameworks</h4>
+                    <ul class="skills-list">
+                        <li>Python</li>
+                        <li>Java (Beginner)</li>
+                        <li>Flask Web Framework</li>
+                    </ul>
+                </div>
+                <div class="skills-category">
+                    <h4>Databases & Infrastructure</h4>
+                    <ul class="skills-list">
+                        <li>SQL & Relational Databases</li>
+                        <li>AWS Basics</li>
+                        <li>Cisco Packet Tracer</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
 
-  <!-- Contact Section -->
-  <section class="contact">
-    <h2>Contact</h2>
-    <p>Email: <a href="mailto:sridharan@example.com">sridharan@example.com</a></p>
-    <p>GitHub: <a href="https://github.com/sridharansridhar428-spec">My GitHub</a></p>
-    <p>LinkedIn: <a href="https://linkedin.com">My LinkedIn</a></p>
-  </section>
+        <!-- Projects Section -->
+        <section id="projects" class="portfolio-section">
+            <h3 class="section-tag">// 03 . Stuff I Built</h3>
+            
+            <div class="project-card">
+                <div class="project-content">
+                    <div class="project-header">
+                        <h4 class="project-title">Flask App with SendGrid: Email Integration Engine</h4>
+                        <a href="#" class="project-link" target="_blank">[Check out]</a>
+                    </div>
+                    <p class="project-description">
+                        Built and deployed a production-ready Flask web application on Render with third-party automation components. Integrated SendGrid mail APIs to process secure transactional emails and communication pipelines cleanly across client-server instances.
+                    </p>
+                    <div class="project-tech">
+                        <span>Python</span>
+                        <span>Flask</span>
+                        <span>SendGrid API</span>
+                        <span>Render Cloud</span>
+                        <span>HTML/CSS</span>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-  <!-- Footer -->
-  <footer>
-    <p>© 2026 Sridharan | Built with HTML & CSS</p>
-  </footer>
+        <!-- Contact Section -->
+        <section id="contact" class="portfolio-section">
+            <h3 class="section-tag">// 04 . Say Hi, Don't Be Shy</h3>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <p><strong>Email:</strong> sridharan@example.com</p>
+                    <p><strong>Location:</strong> Tamil Nadu, India</p>
+                    <div class="social-links">
+                        <a href="#">GitHub</a> • <a href="#">LinkedIn</a>
+                    </div>
+                </div>
+                
+                <form class="contact-form" onsubmit="event.preventDefault();">
+                    <div class="form-group">
+                        <label>* Your Name</label>
+                        <input type="text" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>* Your Email</label>
+                        <input type="email" placeholder="name@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>* Message</label>
+                        <textarea placeholder="Your message here..." rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="portfolio-footer">
+        <p>&copy; 2026 Sridharan | Built with HTML & CSS</p>
+    </footer>
+
 </body>
 </html>
