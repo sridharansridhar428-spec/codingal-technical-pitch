@@ -290,15 +290,15 @@
         }
 
         @media (min-width: 768px) {
-            .about-grid, .contact-container { grid-template-columns: 1.5fr 1fr; }
+            .contact-container { grid-template-columns: 1.2fr 1fr; }
             .skills-grid { grid-template-columns: 1fr 1fr; }
         }
 
-        .education-block, .experience-block, .certifications-block {
-            margin-top: 30px;
+        .education-block, .experience-block, .certifications-block, .achievements-block {
+            margin-top: 10px;
         }
 
-        .education-block h4, .experience-block h4, .certifications-block h4, .skills-category h4 {
+        .education-block h4, .experience-block h4, .certifications-block h4, .achievements-block h4, .skills-category h4 {
             font-size: 1.1rem;
             color: var(--text-white);
             margin-bottom: 15px;
@@ -364,6 +364,48 @@
             top: 2px;
         }
 
+        /* Badge Matrix Grids */
+        .badge-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .badge-node {
+            background: rgba(0, 242, 254, 0.03);
+            border: 1px solid rgba(0, 242, 254, 0.12);
+            padding: 16px;
+            border-radius: 6px;
+            transition: border-color 0.2s;
+        }
+
+        .badge-node:hover {
+            border-color: var(--accent-teal);
+        }
+
+        .badge-node.gold {
+            background: rgba(255, 215, 0, 0.03);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .badge-node.gold:hover {
+            border-color: #ffd700;
+        }
+
+        .badge-title {
+            font-weight: 600;
+            color: var(--text-white);
+            margin-bottom: 6px;
+            font-size: 0.95rem;
+        }
+
+        .badge-desc {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
         /* --- COMPREHENSIVE TERMINAL DECK REDESIGN --- */
         .projects-grid {
             display: grid;
@@ -420,7 +462,6 @@
             padding: 28px;
         }
 
-        /* Dynamic Visual Mockup inspired by Aashish's layout */
         .project-image-frame {
             width: 100%;
             height: 220px;
@@ -593,7 +634,43 @@
             border-color: var(--accent-teal);
         }
 
-        .social-links a {
+        .social-terminal-links {
+            display: flex;
+            gap: 20px;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px dashed var(--border-color);
+        }
+
+        .social-terminal-links a {
+            color: var(--text-white);
+            text-decoration: none;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.2s;
+        }
+
+        .social-terminal-links a:hover {
+            color: var(--accent-teal);
+        }
+
+        .contact-vector-item {
+            margin-bottom: 18px;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-vector-item strong {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-white);
+        }
+
+        .contact-vector-item a {
             color: var(--accent-teal);
             text-decoration: none;
         }
@@ -619,6 +696,8 @@
         <div class="nav-logo">[Sridharan]</div>
         <div class="nav-links">
             <a href="#about">About</a>
+            <a href="#experience">Experience</a>
+            <a href="#achievements">Achievements</a>
             <a href="#skills">Skills</a>
             <a href="#projects">Projects</a>
             <a href="#contact">Contact</a>
@@ -653,61 +732,94 @@
             </div>
         </header>
 
-        <!-- About / Professional Side Section -->
+        <!-- About Section -->
         <section id="about" class="portfolio-section">
-            <h3 class="section-tag">// 01 . My Professional Side</h3>
-            <div class="about-grid">
-                <div class="about-text">
-                    <p>I am a software developer focused on engineering functional server architectures and efficient web interfaces. By combining programmatic application protections with structured network engineering principles, I build scalable solutions that perform seamlessly under live workloads.</p>
-                    
-                    <ul class="professional-highlights">
-                        <li><strong>Full-Stack Focus:</strong> Building dynamic web applications using secure authentication guards and real-time backend processors.</li>
-                        <li><strong>Systems Architecture:</strong> Configuring reverse-proxies, container deployments, and database logic constraints.</li>
-                        <li><strong>Network Engineering:</strong> Designing secure routing topologies and analyzing infrastructure vulnerabilities.</li>
-                    </ul>
+            <h3 class="section-tag">// 01 . Master Engine Profile</h3>
+            <div class="about-text">
+                <p>I am an application engineer specialized in constructing fluid client interfaces backed by data-validated server logic pipelines. By deploying sandboxed network topologies and applying cryptographically guarded access rules, I build terminal-grade web ecosystems engineered to perform under strict enterprise constraints.</p>
+                
+                <ul class="professional-highlights">
+                    <li><strong>Full-Stack Architecture:</strong> Compiling responsive frontend structures connected to secure, multi-threaded request processing gateways.</li>
+                    <li><strong>Systems Engineering:</strong> Provisioning dynamic deployment platforms, automated process scaling, and structured schema pipelines.</li>
+                    <li><strong>Network Topology:</strong> Mapping isolated infrastructure diagrams, auditing packet routes, and neutralizing transport vulnerabilities.</li>
+                </ul>
 
-                    <div class="education-block">
-                        <h4>Education</h4>
-                        <div class="edu-item">
-                            <span class="edu-title">B.C.A (Bachelor of Computer Applications)</span>
-                            <span class="edu-meta">Annamalai University • 2023 — 2026</span>
-                            <ul class="edu-details">
-                                <li>First Class with Distinction</li>
-                                <li>Cumulative GPA: 7.65 / 10.0</li>
-                            </ul>
-                        </div>
+                <div class="education-block" style="margin-top: 40px;">
+                    <h4>Education</h4>
+                    <div class="edu-item">
+                        <span class="edu-title">B.C.A (Bachelor of Computer Applications)</span>
+                        <span class="edu-meta">Annamalai University • 2023 — 2026</span>
+                        <ul class="edu-details">
+                            <li>First Class with Distinction</li>
+                            <li>Cumulative GPA: 7.65 / 10.0</li>
+                        </ul>
                     </div>
                 </div>
-                
-                <div class="about-sidebar">
-                    <!-- Work Experience Container Component -->
-                    <div class="experience-block">
-                        <h4>Work Experience</h4>
-                        <div class="exp-item">
-                            <span class="exp-title">Intern – Networking & Cybersecurity</span>
-                            <span class="exp-meta">AITECHNOSKILL, Mayiladuthurai • 1 Month</span>
-                            <ul class="exp-details">
-                                <li>Configured and simulated secure network topologies using Cisco Packet Tracer to guarantee connection uptime.</li>
-                                <li>Applied cybersecurity fundamentals to trace system vulnerabilities and troubleshoot cross-platform traffic issues.</li>
-                            </ul>
-                        </div>
-                    </div>
+            </div>
+        </section>
 
-                    <!-- Certifications Log Container -->
-                    <div class="certifications-block">
-                        <h4>Certifications</h4>
-                        <div class="cert-item">
-                            <span class="cert-title">Infosys Springboard Certified Programmer</span>
-                            <span class="cert-meta">Issued by Infosys</span>
-                        </div>
+        <!-- Work Experience Section (Full-Width Isolated Section) -->
+        <section id="experience" class="portfolio-section">
+            <h3 class="section-tag">// 02 . Deployment & Field Experience</h3>
+            <div class="experience-block">
+                <div class="exp-item" style="background: rgba(0, 242, 254, 0.02); padding: 20px; border-left: 3px solid var(--accent-teal); border-radius: 0 6px 6px 0;">
+                    <span class="exp-title" style="font-size: 1.15rem;">Intern – Network Infrastructure & Cybersecurity</span>
+                    <span class="exp-meta" style="color: var(--accent-teal);">AITECHNOSKILL, Mayiladuthurai • 1 Month</span>
+                    <ul class="exp-details" style="margin-top: 10px;">
+                        <li>Simulated fault-tolerant routing topologies using Cisco Packet Tracer to enforce data transport availability.</li>
+                        <li>Analyzed data payloads and structural loop pathways to secure connections and neutralize architectural traffic blocks.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Achievements Matrix Section (Full-Width Isolated Section) -->
+        <section id="achievements" class="portfolio-section">
+            <h3 class="section-tag">// 03 . Infosys Springboard Credential Matrix</h3>
+            
+            <div class="achievements-block">
+                <div style="margin-bottom: 25px;">
+                    <p style="color: var(--accent-teal); font-family: 'JetBrains Mono', monospace; font-size: 0.9rem;">&gt; Verified Certified Programmer Status // System Verification Active</p>
+                </div>
+
+                <h4 style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-white); margin-bottom: 15px;">[ EARNED_BADGES // VALIDATED ]</h4>
+                <div class="badge-grid">
+                    <div class="badge-node gold">
+                        <div class="badge-title">🧙‍♂️ Wizard Badge</div>
+                        <div class="badge-desc">Successfully completed 250 verified technical evaluation matrix quiz challenges. (Earned Apr 6, 2026)</div>
                     </div>
+                    <div class="badge-node">
+                        <div class="badge-title">🧞‍♂️ Genie Badge</div>
+                        <div class="badge-desc">Successfully completed 100 benchmark validation resources. (Earned Mar 23, 2025)</div>
+                    </div>
+                    <div class="badge-node">
+                        <div class="badge-title">⚔️ Warrior Badge</div>
+                        <div class="badge-desc">Granted upon complete baseline compilation of first systems framework module. (Earned Oct 9, 2024)</div>
+                    </div>
+                    <div class="badge-node">
+                        <div class="badge-title">🎯 Ace Badge</div>
+                        <div class="badge-desc">Completed 25 algorithmic structural quiz validation targets. (Earned Oct 7, 2024)</div>
+                    </div>
+                    <div class="badge-node">
+                        <div class="badge-title">🦅 The Fledgling</div>
+                        <div class="badge-desc">Cryptographic identity confirmation and host platform registry on Wingspan. (Earned Oct 7, 2024)</div>
+                    </div>
+                    <div class="badge-node">
+                        <div class="badge-title">🤺 Duelist Badge</div>
+                        <div class="badge-desc">Parsed and logged completion metrics for the initial evaluation resource task. (Earned Oct 7, 2024)</div>
+                    </div>
+                </div>
+
+                <h4 style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-white); margin-bottom: 15px;">[ PIPELINE_TARGETS // NEXT_STAGES ]</h4>
+                <div style="font-size: 0.9rem; color: var(--text-muted); background: rgba(255, 255, 255, 0.02); padding: 16px; border-radius: 6px; border: 1px solid var(--border-color); font-family: 'JetBrains Mono', monospace;">
+                    <span style="color: var(--accent-teal);">🚀 Target Matrix:</span> Management Jedi (HBP Integration) • Knight (10 Modules) • Quizzard (1,000 Quizzes) • Champion (25 Courses) • Sensei (100 Courses)
                 </div>
             </div>
         </section>
 
         <!-- Skills Section -->
         <section id="skills" class="portfolio-section">
-            <h3 class="section-tag">// 02 . Technical Matrix</h3>
+            <h3 class="section-tag">// 04 . Technical Matrix</h3>
             <div class="skills-grid">
                 <div class="skills-category">
                     <h4>Programming Languages</h4>
@@ -749,7 +861,7 @@
 
         <!-- Premium Redesigned Projects Console Deck Section -->
         <section id="projects" class="portfolio-section">
-            <h3 class="section-tag">// 03 . Architecture & Deployments</h3>
+            <h3 class="section-tag">// 05 . Architecture & Deployments</h3>
             
             <div class="projects-grid">
                 <div class="project-node">
@@ -759,7 +871,7 @@
                     </div>
                     
                     <div class="node-body">
-                        <!-- Application Screenshot Frame (Inspired by AJ Portfolio Layout) -->
+                        <!-- Application Screenshot Frame -->
                         <div class="project-image-frame">
                             <img src="assets/invitation-maker-preview.png" alt="Invitation Maker Application Interface Logo">
                         </div>
@@ -796,13 +908,36 @@
 
         <!-- Contact Section -->
         <section id="contact" class="portfolio-section">
-            <h3 class="section-tag">// 04 . Say Hi, Don't Be Shy</h3>
+            <h3 class="section-tag">// 06 . Establish Comms Link</h3>
             <div class="contact-container">
                 <div class="contact-info">
-                    <p><strong>Email:</strong> sridharansridhar428@gmail.com</p>
-                    <p><strong>Location:</strong> Tamil Nadu, India</p>
-                    <div class="social-links">
-                        <a href="https://github.com/sridharansridhar428-spec/codingal-technical-pitch" target="_blank">GitHub</a> • <a href="#" target="_blank">LinkedIn</a>
+                    <p style="color: var(--text-muted); margin-bottom: 25px;">Select an active communication socket array below to link directly with my local interface console terminal.</p>
+                    
+                    <div class="contact-vector-item">
+                        <span style="color: var(--accent-teal);">📧</span>
+                        <strong>Secure Mail:</strong>
+                        <a href="mailto:sridharansridhar428@gmail.com">sridharansridhar428@gmail.com</a>
+                    </div>
+                    
+                    <div class="contact-vector-item">
+                        <span style="color: var(--accent-teal);">📞</span>
+                        <strong>Comms Line:</strong>
+                        <a href="tel:+91XXXXXXXXXX">+91 your-number-here</a>
+                    </div>
+
+                    <div class="contact-vector-item">
+                        <span style="color: var(--accent-teal);">📍</span>
+                        <strong>Node Grid:</strong>
+                        <span style="color: var(--text-muted);">Tamil Nadu, India</span>
+                    </div>
+
+                    <div class="social-terminal-links">
+                        <a href="https://github.com/sridharansridhar428-spec" target="_blank">
+                            <span style="color: var(--accent-teal);">💻</span> GitHub
+                        </a>
+                        <a href="https://www.linkedin.com/in/your-profile" target="_blank">
+                            <span style="color: var(--accent-teal);">🔗</span> LinkedIn
+                        </a>
                     </div>
                 </div>
                 
