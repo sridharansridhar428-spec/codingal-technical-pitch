@@ -79,10 +79,23 @@
             color: var(--accent-teal);
         }
 
-        /* Hero Elements */
+        /* Hero Layout Grid */
         .hero-section {
             padding: 80px 0;
             border-bottom: 1px solid var(--border-color);
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        @media (min-width: 768px) {
+            .hero-grid {
+                grid-template-columns: 1.6fr 1fr;
+            }
         }
 
         .terminal-status {
@@ -113,6 +126,27 @@
             color: var(--text-muted);
             max-width: 700px;
             margin-bottom: 35px;
+        }
+
+        /* Profile Photo Layout */
+        .hero-img-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .hero-profile-img {
+            width: 240px;
+            height: 240px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 2px solid var(--accent-teal);
+            box-shadow: 0 0 25px rgba(0, 242, 254, 0.15); /* Sleek teal terminal glow */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .hero-profile-img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 35px rgba(0, 242, 254, 0.3);
         }
 
         /* Custom Minimal Action Buttons */
@@ -152,10 +186,19 @@
             background-color: rgba(0, 242, 254, 0.1);
         }
 
-        /* Layout Content Sections */
+        /* Layout Content Sections & Fade Animation */
         .portfolio-section {
             padding: 80px 0;
             border-bottom: 1px solid var(--border-color);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        /* Triggered dynamically via Scroll JavaScript */
+        .portfolio-section.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .section-tag {
@@ -358,17 +401,27 @@
     </nav>
 
     <main class="container">
-        <!-- Hero Section -->
+        <!-- Hero Section Grid (Text Left, Image Right) -->
         <header class="hero-section">
-            <div class="terminal-status">➜ 0 % *{* [intro] *_* 100% remaining</div>
-            <h1 class="hero-title">Hey, I'm Sridharan</h1>
-            <h2 class="hero-subtitle">BCA Graduate across Web and Networking Systems</h2>
-            <p class="hero-description">
-                I enjoy building practical solutions across software layers. From backend web microservices to network configurations, I focus on building reliable and structured systems.
-            </p>
-            <div class="action-buttons">
-                <a href="#contact" class="btn btn-primary">Get in Touch</a>
-                <a href="#" class="btn btn-secondary">Download Resume</a>
+            <div class="hero-grid">
+                <div class="hero-text">
+                    <div class="terminal-status">➜ 0 % *{* [intro] *_* 100% remaining</div>
+                    <h1 class="hero-title">Hey, I'm Sridharan</h1>
+                    <h2 class="hero-subtitle">BCA Graduate across Web and Networking Systems</h2>
+                    <p class="hero-description">
+                        I enjoy building practical solutions across software layers. From backend web microservices to network configurations, I focus on building reliable and structured systems.
+                    </p>
+                    <div class="action-buttons">
+                        <a href="#contact" class="btn btn-primary">Get in Touch</a>
+                        <!-- Linked directly to your local resume file -->
+                        <a href="resume.pdf" class="btn btn-secondary" download>Download Resume</a>
+                    </div>
+                </div>
+                
+                <!-- Profile Image Frame -->
+                <div class="hero-img-container">
+                    <img src="image.png" alt="Sridharan" class="hero-profile-img">
+                </div>
             </div>
         </header>
 
@@ -485,5 +538,35 @@
         <p>&copy; 2026 Sridharan | Built with HTML & CSS</p>
     </footer>
 
+    <!-- Integrated Production JavaScript Logic -->
+    <script>
+        // Smooth scroll implementation for links
+        document.querySelectorAll('a[href^="#"]').forEach(link => {
+            link.addEventListener('click', e => {
+                e.preventDefault();
+                const target = document.querySelector(link.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Safe fade-in trigger on viewport entry matching user design
+        const sections = document.querySelectorAll('.portfolio-section');
+        
+        function checkScrollVisibility() {
+            sections.forEach(sec => {
+                const top = window.scrollY;
+                const offset = sec.offsetTop - 550; /* Optimized viewport trigger point */
+                if (top > offset) {
+                    sec.classList.add('visible');
+                }
+            });
+        }
+
+        // Initialize visibility engine on load and track scroll intervals
+        window.addEventListener('scroll', checkScrollVisibility);
+        window.addEventListener('DOMContentLoaded', checkScrollVisibility);
+    </script>
 </body>
 </html>
