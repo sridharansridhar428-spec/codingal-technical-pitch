@@ -27,6 +27,56 @@ body {
     padding-top: 80px; /* Spacer for fixed navigation */
 }
 
+/* Global Cursor Reset to Support Custom Pointer System */
+body, a, button, input, textarea, .project-node {
+    cursor: none !important;
+}
+
+/* --- CUSTOM CURSOR GRAPHICS ENGINE --- */
+.custom-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+    pointer-events: none; /* Let pointer selections drop through */
+    z-index: 9999;
+    border-radius: 50%;
+    mix-blend-mode: difference; /* Inverts color over elements automatically */
+    display: none; /* Hidden on touchscreens initially */
+}
+
+/* Precision inner laser core */
+.custom-cursor.dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--accent-teal);
+}
+
+/* Inertial dampening trailing boundary circle */
+.custom-cursor.outline {
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--accent-teal);
+    transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1), 
+                height 0.3s cubic-bezier(0.25, 1, 0.5, 1), 
+                background-color 0.3s ease;
+}
+
+/* Dynamic interactive morph target */
+.custom-cursor.hovered.outline {
+    width: 60px;
+    height: 60px;
+    background-color: rgba(0, 242, 254, 0.15);
+    border-color: var(--accent-teal);
+}
+
+/* Only render custom visual pointer indicators on screen arrays with mice */
+@media (pointer: fine) {
+    .custom-cursor {
+        display: block;
+    }
+}
+
 .container {
     max-width: 900px;
     margin: 0 auto;
@@ -62,6 +112,7 @@ body {
     margin-left: 25px;
     font-size: 0.95rem;
     font-weight: 500;
+    display: inline-block;
     transition: color 0.2s ease;
 }
 
@@ -69,18 +120,54 @@ body {
     color: var(--accent-teal);
 }
 
-/* Hero Elements */
+/* Hero Layout Grid */
 .hero-section {
     padding: 80px 0;
     border-bottom: 1px solid var(--border-color);
 }
 
+.hero-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    align-items: center;
+}
+
+@media (min-width: 768px) {
+    .hero-grid {
+        grid-template-columns: 1.6fr 1fr;
+    }
+}
+
+/* --- MODERN RE-ENGINEERED STATUS PIPELINE --- */
 .terminal-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
     font-family: 'JetBrains Mono', monospace;
     color: var(--accent-teal);
-    font-size: 0.9rem;
-    margin-bottom: 20px;
-    letter-spacing: 1px;
+    font-size: 0.85rem;
+    background: rgba(0, 242, 254, 0.05);
+    padding: 6px 14px;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 242, 254, 0.15);
+    margin-bottom: 25px;
+    letter-spacing: 0.5px;
+}
+
+.status-dot.blink {
+    width: 8px;
+    height: 8px;
+    background-color: var(--accent-teal);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--accent-teal);
+    animation: networkPulse 1.8s infinite ease-in-out;
+}
+
+@keyframes networkPulse {
+    0% { opacity: 0.3; transform: scale(0.9); }
+    50% { opacity: 1; transform: scale(1.1); }
+    100% { opacity: 0.3; transform: scale(0.9); }
 }
 
 .hero-title {
@@ -88,6 +175,7 @@ body {
     font-weight: 800;
     letter-spacing: -1px;
     margin-bottom: 10px;
+    color: var(--text-white);
 }
 
 .hero-subtitle {
@@ -102,6 +190,27 @@ body {
     color: var(--text-muted);
     max-width: 700px;
     margin-bottom: 35px;
+}
+
+/* Profile Photo Layout */
+.hero-img-container {
+    display: flex;
+    justify-content: center;
+}
+
+.hero-profile-img {
+    width: 240px;
+    height: 240px;
+    border-radius: 12px;
+    object-fit: cover;
+    border: 2px solid var(--accent-teal);
+    box-shadow: 0 0 25px rgba(0, 242, 254, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hero-profile-img:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 35px rgba(0, 242, 254, 0.3);
 }
 
 /* Custom Minimal Action Buttons */
@@ -141,10 +250,18 @@ body {
     background-color: rgba(0, 242, 254, 0.1);
 }
 
-/* Layout Content Sections */
+/* Layout Content Sections & Fade Animation */
 .portfolio-section {
     padding: 80px 0;
     border-bottom: 1px solid var(--border-color);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.portfolio-section.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .section-tag {
@@ -186,6 +303,7 @@ body {
 .edu-title {
     display: block;
     font-weight: 600;
+    color: var(--text-white);
 }
 
 .edu-meta {
@@ -228,58 +346,127 @@ body {
     font-size: 1.2rem;
 }
 
-/* Unified Main Project Card Styling */
-.project-card {
-    background-color: var(--card-bg);
+/* --- COMPREHENSIVE TERMINAL DECK REDESIGN --- */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    margin-top: 10px;
+}
+
+.project-node {
+    background: #0d1520; 
     border: 1px solid var(--border-color);
     border-radius: 8px;
-    padding: 35px;
-    transition: transform 0.2s ease, border-color 0.2s ease;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
-.project-card:hover {
-    transform: translateY(-4px);
+.project-node:hover {
+    transform: translateY(-5px);
     border-color: var(--accent-teal);
+    box-shadow: 0 10px 30px rgba(0, 242, 254, 0.12);
 }
 
-.project-header {
+.node-header {
+    background: rgba(255, 255, 255, 0.02);
+    padding: 14px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 15px;
+    align-items: center;
 }
 
-.project-title {
-    font-size: 1.3rem;
-    font-weight: 700;
-}
-
-.project-link {
+.node-status {
     font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
     color: var(--accent-teal);
-    text-decoration: none;
-    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+}
+
+.node-window-dots {
+    display: flex;
+    gap: 6px;
+}
+
+.node-window-dots span {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.node-body {
+    padding: 28px;
+}
+
+.project-name {
+    font-size: 1.35rem;
+    color: var(--text-white);
+    margin: 0 0 14px 0;
+    font-weight: 700;
+    letter-spacing: -0.3px;
 }
 
 .project-description {
     color: var(--text-muted);
-    font-size: 1rem;
-    margin-bottom: 25px;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 24px;
 }
 
-.project-tech {
+.tech-tags {
     display: flex;
     flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 28px;
+}
+
+.tech-tags span {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    background: rgba(0, 242, 254, 0.06);
+    color: var(--accent-teal);
+    padding: 4px 10px;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 242, 254, 0.12);
+}
+
+.project-actions {
+    display: flex;
     gap: 12px;
 }
 
-.project-tech span {
+.btn-primary-sm, .btn-secondary-sm {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.8rem;
-    color: var(--accent-teal);
-    background-color: rgba(0, 242, 254, 0.05);
-    padding: 4px 10px;
+    padding: 8px 18px;
     border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.btn-primary-sm {
+    background: var(--accent-teal);
+    color: #070a13;
+}
+
+.btn-primary-sm:hover {
+    background: #ffffff;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+.btn-secondary-sm {
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: var(--text-white);
+}
+
+.btn-secondary-sm:hover {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.4);
 }
 
 /* Form Styling & Terminal Contact Structure */
