@@ -37,6 +37,56 @@
             padding-top: 80px; /* Spacer for fixed navigation */
         }
 
+        /* Global Cursor Reset to Support Custom Pointer System */
+        body, a, button, input, textarea, .project-node {
+            cursor: none !important;
+        }
+
+        /* --- CUSTOM CURSOR GRAPHICS ENGINE --- */
+        .custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            pointer-events: none; /* Let pointer selections drop through */
+            z-index: 9999;
+            border-radius: 50%;
+            mix-blend-mode: difference; /* Inverts color over elements automatically */
+            display: none; /* Hidden on touchscreens initially */
+        }
+
+        /* Precision inner laser core */
+        .custom-cursor.dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-teal);
+        }
+
+        /* Inertial dampening trailing boundary circle */
+        .custom-cursor.outline {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--accent-teal);
+            transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1), 
+                        height 0.3s cubic-bezier(0.25, 1, 0.5, 1), 
+                        background-color 0.3s ease;
+        }
+
+        /* Dynamic interactive morph target */
+        .custom-cursor.hovered.outline {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(0, 242, 254, 0.15);
+            border-color: var(--accent-teal);
+        }
+
+        /* Only render custom visual pointer indicators on screen arrays with mice mice */
+        @media (pointer: fine) {
+            .custom-cursor {
+                display: block;
+            }
+        }
+
         .container {
             max-width: 900px;
             margin: 0 auto;
@@ -72,6 +122,7 @@
             margin-left: 25px;
             font-size: 0.95rem;
             font-weight: 500;
+            display: inline-block;
             transition: color 0.2s ease;
         }
 
@@ -98,12 +149,35 @@
             }
         }
 
+        /* --- MODERN RE-ENGINEERED STATUS PIPELINE --- */
         .terminal-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
             font-family: 'JetBrains Mono', monospace;
             color: var(--accent-teal);
-            font-size: 0.9rem;
-            margin-bottom: 20px;
-            letter-spacing: 1px;
+            font-size: 0.85rem;
+            background: rgba(0, 242, 254, 0.05);
+            padding: 6px 14px;
+            border-radius: 4px;
+            border: 1px solid rgba(0, 242, 254, 0.15);
+            margin-bottom: 25px;
+            letter-spacing: 0.5px;
+        }
+
+        .status-dot.blink {
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-teal);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--accent-teal);
+            animation: networkPulse 1.8s infinite ease-in-out;
+        }
+
+        @keyframes networkPulse {
+            0% { opacity: 0.3; transform: scale(0.9); }
+            50% { opacity: 1; transform: scale(1.1); }
+            100% { opacity: 0.3; transform: scale(0.9); }
         }
 
         .hero-title {
@@ -140,7 +214,7 @@
             border-radius: 12px;
             object-fit: cover;
             border: 2px solid var(--accent-teal);
-            box-shadow: 0 0 25px rgba(0, 242, 254, 0.15); /* Sleek teal terminal glow */
+            box-shadow: 0 0 25px rgba(0, 242, 254, 0.15);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
@@ -195,7 +269,6 @@
             transition: opacity 0.6s ease-out, transform 0.6s ease-out;
         }
 
-        /* Triggered dynamically via Scroll JavaScript */
         .portfolio-section.visible {
             opacity: 1;
             transform: translateY(0);
@@ -283,59 +356,127 @@
             font-size: 1.2rem;
         }
 
-        /* Unified Main Project Card Styling */
-        .project-card {
-            background-color: var(--card-bg);
+        /* --- COMPREHENSIVE TERMINAL DECK REDESIGN --- */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-top: 10px;
+        }
+
+        .project-node {
+            background: #0d1520; 
             border: 1px solid var(--border-color);
             border-radius: 8px;
-            padding: 35px;
-            transition: transform 0.2s ease, border-color 0.2s ease;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
 
-        .project-card:hover {
-            transform: translateY(-4px);
+        .project-node:hover {
+            transform: translateY(-5px);
             border-color: var(--accent-teal);
+            box-shadow: 0 10px 30px rgba(0, 242, 254, 0.12);
         }
 
-        .project-header {
+        .node-header {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 14px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 15px;
+            align-items: center;
         }
 
-        .project-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--text-white);
-        }
-
-        .project-link {
+        .node-status {
             font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
             color: var(--accent-teal);
-            text-decoration: none;
-            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+
+        .node-window-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .node-window-dots span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .node-body {
+            padding: 28px;
+        }
+
+        .project-name {
+            font-size: 1.35rem;
+            color: var(--text-white);
+            margin: 0 0 14px 0;
+            font-weight: 700;
+            letter-spacing: -0.3px;
         }
 
         .project-description {
             color: var(--text-muted);
-            font-size: 1rem;
-            margin-bottom: 25px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 24px;
         }
 
-        .project-tech {
+        .tech-tags {
             display: flex;
             flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 28px;
+        }
+
+        .tech-tags span {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            background: rgba(0, 242, 254, 0.06);
+            color: var(--accent-teal);
+            padding: 4px 10px;
+            border-radius: 4px;
+            border: 1px solid rgba(0, 242, 254, 0.12);
+        }
+
+        .project-actions {
+            display: flex;
             gap: 12px;
         }
 
-        .project-tech span {
+        .btn-primary-sm, .btn-secondary-sm {
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.8rem;
-            color: var(--accent-teal);
-            background-color: rgba(0, 242, 254, 0.05);
-            padding: 4px 10px;
+            padding: 8px 18px;
             border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .btn-primary-sm {
+            background: var(--accent-teal);
+            color: #070a13;
+        }
+
+        .btn-primary-sm:hover {
+            background: #ffffff;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-secondary-sm {
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: var(--text-white);
+        }
+
+        .btn-secondary-sm:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(255, 255, 255, 0.4);
         }
 
         /* Form Styling & Terminal Contact Structure */
@@ -389,6 +530,10 @@
 </head>
 <body>
 
+    <!-- Target Hardware Elements for Custom Precision Pointer Tracking -->
+    <div class="custom-cursor dot"></div>
+    <div class="custom-cursor outline"></div>
+
     <!-- Navigation Header -->
     <nav class="navbar">
         <div class="nav-logo">[Sridharan]</div>
@@ -405,7 +550,11 @@
         <header class="hero-section">
             <div class="hero-grid">
                 <div class="hero-text">
-                    <div class="terminal-status">➜ 0 % *{* [intro] *_* 100% remaining</div>
+                    <!-- Modern Restructured Uptime Monitor Pipeline -->
+                    <div class="terminal-status">
+                        <span class="status-dot blink"></span>
+                        <span>SYSTEM: ONLINE // PORT_8080: ACTIVE</span>
+                    </div>
                     <h1 class="hero-title">Hey, I'm Sridharan</h1>
                     <h2 class="hero-subtitle">BCA Graduate across Web and Networking Systems</h2>
                     <p class="hero-description">
@@ -413,14 +562,12 @@
                     </p>
                     <div class="action-buttons">
                         <a href="#contact" class="btn btn-primary">Get in Touch</a>
-                        <!-- Linked directly to your local resume file -->
                         <a href="resume.pdf" class="btn btn-secondary" download>Download Resume</a>
                     </div>
                 </div>
                 
                 <!-- Profile Image Frame -->
                 <div class="hero-img-container">
-                    <!-- Change image.png to my-profile.jpg -->
                      <img src="profile.jpg" alt="Sridharan" class="hero-profile-img">
                 </div>
             </div>
@@ -479,25 +626,35 @@
             </div>
         </section>
 
-        <!-- Projects Section -->
+        <!-- Premium Redesigned Projects Console Deck Section -->
         <section id="projects" class="portfolio-section">
             <h3 class="section-tag">// 03 . Stuff I Built</h3>
             
-            <div class="project-card">
-                <div class="project-content">
-                    <div class="project-header">
-                        <h4 class="project-title">Flask App with SendGrid: Email Integration Engine</h4>
-                        <a href="#" class="project-link" target="_blank">[Check out]</a>
+            <div class="projects-grid">
+                <div class="project-node">
+                    <div class="node-header">
+                        <span class="node-status">STATUS: DEPLOYED</span>
+                        <div class="node-window-dots"><span></span><span></span><span></span></div>
                     </div>
-                    <p class="project-description">
-                        Built and deployed a production-ready Flask web application on Render with third-party automation components. Integrated SendGrid mail APIs to process secure transactional emails and communication pipelines cleanly across client-server instances.
-                    </p>
-                    <div class="project-tech">
-                        <span>Python</span>
-                        <span>Flask</span>
-                        <span>SendGrid API</span>
-                        <span>Render Cloud</span>
-                        <span>HTML/CSS</span>
+                    
+                    <div class="node-body">
+                        <h4 class="project-name">Flask App with SendGrid: Email Integration Engine</h4>
+                        <p class="project-description">
+                            Built and deployed a production-ready Flask web application on Render with third-party automation components. Integrated SendGrid mail APIs to process secure transactional emails and communication pipelines cleanly across client-server instances.
+                        </p>
+                        
+                        <div class="tech-tags">
+                            <span>Python</span>
+                            <span>Flask</span>
+                            <span>SendGrid API</span>
+                            <span>Render Cloud</span>
+                            <span>HTML/CSS</span>
+                        </div>
+                        
+                        <div class="project-actions">
+                            <a href="#" class="btn-primary-sm" target="_blank">Launch Live</a>
+                            <a href="#" class="btn-secondary-sm" target="_blank">Repository</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -508,7 +665,7 @@
             <h3 class="section-tag">// 04 . Say Hi, Don't Be Shy</h3>
             <div class="contact-container">
                 <div class="contact-info">
-                    <p><strong>Email:</strong> sridharan@example.com</p>
+                    <p><strong>Email:</strong> sridharansridhar428@gmail.com</p>
                     <p><strong>Location:</strong> Tamil Nadu, India</p>
                     <div class="social-links">
                         <a href="#">GitHub</a> • <a href="#">LinkedIn</a>
@@ -541,7 +698,7 @@
 
     <!-- Integrated Production JavaScript Logic -->
     <script>
-        // Smooth scroll implementation for links
+        // --- 1. SMOOTH SCROLL MECHANISM ---
         document.querySelectorAll('a[href^="#"]').forEach(link => {
             link.addEventListener('click', e => {
                 e.preventDefault();
@@ -552,22 +709,83 @@
             });
         });
 
-        // Safe fade-in trigger on viewport entry matching user design
-        const sections = document.querySelectorAll('.portfolio-section');
+        // --- 2. INTERACTIVE CURSOR DYNAMICS ENGINE ---
+        const cursorDot = document.querySelector('.custom-cursor.dot');
+        const cursorOutline = document.querySelector('.custom-cursor.outline');
+
+        window.addEventListener('mousemove', (e) => {
+            const posX = e.clientX;
+            const posY = e.clientY;
+
+            // Instantly transition inner core, apply minor transitional buffer to trailing outline
+            cursorDot.style.left = `${posX}px`;
+            cursorDot.style.top = `${posY}px`;
+            
+            cursorOutline.style.left = `${posX}px`;
+            cursorOutline.style.top = `${posY}px`;
+        });
+
+        // Handle expansion transitions across interactive hardware targets
+        const triggerElements = document.querySelectorAll('a, button, .project-node, input, textarea');
+        triggerElements.forEach((element) => {
+            element.addEventListener('mouseenter', () => {
+                cursorOutline.classList.add('hovered');
+            });
+            element.addEventListener('mouseleave', () => {
+                cursorOutline.classList.remove('hovered');
+            });
+        });
+
+        // --- 3. CRYPTOGRAPHIC LINK SCRAMBLE EFFECT ---
+        const navigationLinks = document.querySelectorAll('nav a, .action-buttons a, .social-links a, .btn-primary-sm, .btn-secondary-sm');
         
-        function checkScrollVisibility() {
-            sections.forEach(sec => {
-                const top = window.scrollY;
-                const offset = sec.offsetTop - 550; /* Optimized viewport trigger point */
-                if (top > offset) {
+        navigationLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                const targetAttribute = this.getAttribute('href');
+                
+                // If it is an external link or form button simulation, let default action apply
+                if (targetAttribute === '#' || !targetAttribute.startsWith('#')) return;
+
+                const originalText = this.innerText;
+                const matrixChars = "$%&—+*<>-_[]{}ÿÆŒØ#01";
+                let iterationProgress = 0;
+                
+                const scrambleInterval = setInterval(() => {
+                    this.innerText = originalText
+                        .split("")
+                        .map((char, index) => {
+                            if(index < iterationProgress) {
+                                return originalText[index];
+                            }
+                            return matrixChars[Math.floor(Math.random() * matrixChars.length)];
+                        })
+                        .join("");
+                    
+                    if(iterationProgress >= originalText.length) {
+                        clearInterval(scrambleInterval);
+                        this.innerText = originalText; // Restore target baseline
+                    }
+                    
+                    iterationProgress += 1 / 2;
+                }, 30);
+            });
+        });
+
+        // --- 4. VIEWPORT ENGINE SCROLL VISIBILITY TRIGGER ---
+        const portfolioSections = document.querySelectorAll('.portfolio-section');
+        
+        function evalScrollTrigger() {
+            portfolioSections.forEach(sec => {
+                const currentScroll = window.scrollY;
+                const optimizedTriggerOffset = sec.offsetTop - 580; 
+                if (currentScroll > optimizedTriggerOffset) {
                     sec.classList.add('visible');
                 }
             });
         }
 
-        // Initialize visibility engine on load and track scroll intervals
-        window.addEventListener('scroll', checkScrollVisibility);
-        window.addEventListener('DOMContentLoaded', checkScrollVisibility);
+        window.addEventListener('scroll', evalScrollTrigger);
+        window.addEventListener('DOMContentLoaded', evalScrollTrigger);
     </script>
 </body>
 </html>
