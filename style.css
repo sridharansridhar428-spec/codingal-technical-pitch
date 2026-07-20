@@ -118,26 +118,26 @@ body, a, button, input, textarea, .project-node {
 
 /* Hero Layout Grid & Stability Fixes */
 .hero-section {
-    padding: 80px 0;
-    border-bottom: 1px solid var(--border-color);
+  padding: 80px 0;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .hero-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 40px;
-    align-items: start;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  align-items: start;
 }
 
 @media (min-width: 768px) {
-    .hero-grid {
-        grid-template-columns: 2fr 1fr;
-    }
+  .hero-grid {
+    grid-template-columns: 2fr 1fr; /* text on left, image on right */
+  }
 }
 
 .hero-text {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .terminal-status {
@@ -171,24 +171,25 @@ body, a, button, input, textarea, .project-node {
 }
 
 .hero-title {
-    font-size: 3.5rem;
-    font-weight: 800;
-    letter-spacing: -1px;
-    margin-bottom: 15px;
-    color: var(--text-white);
+  font-size: 3.5rem;
+  font-weight: 800;
+  letter-spacing: -1px;
+  margin-bottom: 15px;
+  color: var(--text-white);
 }
 
-/* Dynamic Rotating Subtitle Styles with Structural Height Lock & Wrap Stability */
 .hero-subtitle {
-    font-size: 1.15rem;
-    font-weight: 600;
-    color: var(--text-muted);
-    font-family: 'JetBrains Mono', monospace;
-    margin-bottom: 25px;
-    line-height: 1.5;
-    display: block;
-    width: 100%;
-    min-height: 4.8rem; /* Locks sufficient vertical box height to prevent layout reflows */
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  font-family: 'JetBrains Mono', monospace;
+  margin-bottom: 25px;
+  line-height: 1.5;
+  display: block;
+  width: 100%;
+  min-height: 4.8rem;
+  word-wrap: break-word; /* prevents overflow */
+  overflow-wrap: break-word;
 }
 
 .typewriter-wrapper {
@@ -199,7 +200,7 @@ body, a, button, input, textarea, .project-node {
 .typewriter-text {
     color: var(--accent-teal);
     border-right: 2px solid var(--accent-teal);
-    white-space: pre-wrap; /* Keeps spaces intact and allows safe line wrapping without pushing content */
+    white-space: pre-wrap;
     word-break: break-word;
     animation: cursorBlink 0.75s step-end infinite;
     padding-right: 2px;
@@ -211,33 +212,34 @@ body, a, button, input, textarea, .project-node {
 }
 
 .hero-description {
-    font-size: 1.1rem;
-    color: var(--text-muted);
-    max-width: 700px;
-    margin-bottom: 35px;
-    display: block;
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  max-width: 700px;
+  margin-bottom: 35px;
+  display: block;
 }
 
 .hero-img-container {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 20px; /* extra breathing room */
 }
 
 .hero-profile-img {
-    width: 240px;
-    height: 240px;
-    border-radius: 12px;
-    object-fit: cover;
-    border: 2px solid var(--accent-teal);
-    box-shadow: 0 0 25px rgba(0, 242, 254, 0.15);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    display: block;
+  width: 240px;
+  height: 240px;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 2px solid var(--accent-teal);
+  box-shadow: 0 0 25px rgba(0, 242, 254, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: block;
 }
 
 .hero-profile-img:hover {
-    transform: scale(1.02);
-    box-shadow: 0 0 35px rgba(0, 242, 254, 0.3);
+  transform: scale(1.02);
+  box-shadow: 0 0 35px rgba(0, 242, 254, 0.3);
 }
 
 .action-buttons {
