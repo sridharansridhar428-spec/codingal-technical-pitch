@@ -256,13 +256,7 @@
         .portfolio-section {
             padding: 80px 0;
             border-bottom: 1px solid var(--border-color);
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-
-        .portfolio-section.visible {
-            opacity: 1;
+            opacity: 1; /* Fixed visibility default */
             transform: translateY(0);
         }
 
@@ -923,8 +917,33 @@
         </section>
     </main>
 
+    <!-- Custom Cursor & Scroll Animation Engine Script -->
+    <script>
+        const cursorDot = document.querySelector('.custom-cursor.dot');
+        const cursorOutline = document.querySelector('.custom-cursor.outline');
+
+        window.addEventListener('mousemove', (e) => {
+            const posX = e.clientX;
+            const posY = e.clientY;
+            
+            if (cursorDot && cursorOutline) {
+                cursorDot.style.left = `${posX}px`;
+                cursorDot.style.top = `${posY}px`;
+                
+                cursorOutline.style.left = `${posX}px`;
+                cursorOutline.style.top = `${posY}px`;
+            }
+        });
+
+        document.querySelectorAll('a, button, input, textarea, .project-node').forEach(el => {
+            el.addEventListener('mouseenter', () => cursorOutline && cursorOutline.classList.add('hovered'));
+            el.addEventListener('mouseleave', () => cursorOutline && cursorOutline.classList.remove('hovered'));
+        });
+    </script>
+
     <!-- Footer -->
     <footer class="portfolio-footer">
         <p>&copy; 2026 Sridharan | Built with HTML & CSS</p>
-    </body>
+    </footer>
+</body>
 </html>
