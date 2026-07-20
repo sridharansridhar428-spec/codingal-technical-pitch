@@ -185,20 +185,19 @@ body, a, button, input, textarea, .project-node {
     font-family: 'JetBrains Mono', monospace;
     margin-bottom: 25px;
     line-height: 1.5;
-    /* Fixed block display with explicit height bounds to prevent layout reflow and text clipping */
-    display: block;
-    width: 100%;
-    min-height: 3.5rem;
+    display: inline-block;
+    max-width: 100%;
 }
 
 .typewriter-wrapper {
     display: inline-block;
+    max-width: 100%;
 }
 
 .typewriter-text {
     color: var(--accent-teal);
     border-right: 2px solid var(--accent-teal);
-    white-space: normal; /* Allows long roles to wrap cleanly instead of clipping or breaking out */
+    white-space: normal; /* Allows the text to wrap safely onto the next line instead of overflowing */
     word-break: break-word;
     animation: cursorBlink 0.75s step-end infinite;
     padding-right: 2px;
