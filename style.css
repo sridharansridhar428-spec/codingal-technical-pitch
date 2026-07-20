@@ -116,7 +116,7 @@ body, a, button, input, textarea, .project-node {
     color: var(--accent-teal);
 }
 
-/* Hero Layout Grid */
+/* Hero Layout Grid & Stability Fixes */
 .hero-section {
     padding: 80px 0;
     border-bottom: 1px solid var(--border-color);
@@ -131,8 +131,14 @@ body, a, button, input, textarea, .project-node {
 
 @media (min-width: 768px) {
     .hero-grid {
-        grid-template-columns: 1.6fr 1fr;
+        grid-template-columns: 1.5fr 1fr;
+        align-items: center;
     }
+}
+
+.hero-text {
+    display: flex;
+    flex-direction: column;
 }
 
 .terminal-status {
@@ -181,7 +187,10 @@ body, a, button, input, textarea, .project-node {
     font-family: 'JetBrains Mono', monospace;
     margin-bottom: 25px;
     line-height: 1.5;
-    min-height: 1.8em;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
 }
 
 .typewriter-text {
@@ -202,11 +211,13 @@ body, a, button, input, textarea, .project-node {
     color: var(--text-muted);
     max-width: 700px;
     margin-bottom: 35px;
+    display: block;
 }
 
 .hero-img-container {
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .hero-profile-img {
@@ -217,6 +228,7 @@ body, a, button, input, textarea, .project-node {
     border: 2px solid var(--accent-teal);
     box-shadow: 0 0 25px rgba(0, 242, 254, 0.15);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: block;
 }
 
 .hero-profile-img:hover {
