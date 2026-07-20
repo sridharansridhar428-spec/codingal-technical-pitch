@@ -38,59 +38,10 @@ document.querySelectorAll('.portfolio-section').forEach(section => {
     observer.observe(section);
 });
 
-// Dynamic Typewriter Engine (Token-based to handle <br> safely)
-const titles = [
-    "Application Engineer & <br>Network Topologist",
-    "Solutions Architect & <br>Network Infrastructure Engineer",
-    "Full-Stack Application Developer & <br>Core Network Operator"
-];
-
-let roleIndex = 0;
-let charIndex = 0;
-let isDeleting = false;
-const typingSpeed = 60;
-const deletingSpeed = 30;
-const pauseTime = 2200;
-
-function typeWriter() {
-    const targetElement = document.getElementById('dynamic-role');
-    if (!targetElement) return;
-
-    const currentRole = titles[roleIndex];
-
-    if (!isDeleting) {
-        // If we hit an HTML tag, advance past it immediately in one go
-        if (currentRole.substr(charIndex, 5) === "<br>") {
-            charIndex += 5;
-        }
-        charIndex++;
-        targetElement.innerHTML = currentRole.substring(0, charIndex);
-
-        if (charIndex >= currentRole.length) {
-            isDeleting = true;
-            setTimeout(typeWriter, pauseTime);
-            return;
-        }
-        setTimeout(typeWriter, typingSpeed);
-    } else {
-        // If deleting hits an HTML tag, skip backward past it immediately
-        if (currentRole.substr(charIndex - 5, 5) === "<br>") {
-            charIndex -= 5;
-        }
-        charIndex--;
-        targetElement.innerHTML = currentRole.substring(0, charIndex);
-
-        if (charIndex <= 0) {
-            isDeleting = false;
-            roleIndex = (roleIndex + 1) % titles.length;
-            charIndex = 0;
-            setTimeout(typeWriter, 400);
-            return;
-        }
-        setTimeout(typeWriter, deletingSpeed);
-    }
-}
-
+// Single Static Title with proper HTML rendering
 document.addEventListener("DOMContentLoaded", () => {
-    setTimeout(typeWriter, 800);
+    const targetElement = document.getElementById('dynamic-role');
+    if (targetElement) {
+        targetElement.innerHTML = "Solutions Architect &<br>Network Infrastructure";
+    }
 });
