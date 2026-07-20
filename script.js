@@ -38,49 +38,50 @@ document.querySelectorAll('.portfolio-section').forEach(section => {
     observer.observe(section);
 });
 
-// Clean Static Title with HTML line break
+// Run everything that relies on HTML elements inside DOMContentLoaded
 document.addEventListener("DOMContentLoaded", () => {
+    // Clean Static Title with HTML line break
     const targetElement = document.getElementById('dynamic-role');
     if (targetElement) {
-        targetElement.innerHTML = "Full-Stack Application Developer &\nCore Network Operator","Solutions Architect &\nNetwork Infrastructure Engineer";
+        targetElement.innerHTML = "Full-Stack Application Developer &\nCore Network Operator";
     }
-});
 
-// --- ASYNCHRONOUS FORM SUBMISSION HANDLER ---
-const contactForm = document.getElementById('contact-form');
-const formStatus = document.getElementById('form-status');
-const submitBtn = document.getElementById('submit-btn');
+    // --- ASYNCHRONOUS FORM SUBMISSION HANDLER ---
+    const contactForm = document.getElementById('contact-form');
+    const formStatus = document.getElementById('form-status');
+    const submitBtn = document.getElementById('submit-btn');
 
-if (contactForm) {
-    contactForm.addEventListener('submit', async function(e) {
-        e.preventDefault(); // Prevents page reload and jumping to the top
-        submitBtn.textContent = "[ ESTABLISHING HANDSHAKE... ]";
-        
-        const data = new FormData(contactForm);
-        
-        try {
-            const response = await fetch("https://formspree.io/f/mkodbbvy", {
-                method: 'POST',
-                body: data,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            });
+    if (contactForm) {
+        contactForm.addEventListener('submit', async function(e) {
+            e.preventDefault(); // Prevents standard GET submission and page jump
+            submitBtn.textContent = "[ ESTABLISHING HANDSHAKE... ]";
             
-            if (response.ok) {
-                formStatus.style.color = "var(--accent-teal)";
-                formStatus.textContent = "ACCESS GRANTED: Transmission accepted & packets delivered.";
-                contactForm.reset();
-                submitBtn.textContent = "[ 🛰️ DEPLOY MESSAGE THROUGH SECURE TUNNEL ]";
-            } else {
+            const data = new FormData(contactForm);
+            
+            try {
+                const response = await fetch("https://formspree.io/f/mkodbbvy", {
+                    method: 'POST',
+                    body: data,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                if (response.ok) {
+                    formStatus.style.color = "var(--accent-teal)";
+                    formStatus.textContent = "ACCESS GRANTED: Transmission accepted & packets delivered.";
+                    contactForm.reset();
+                    submitBtn.textContent = "[ 🛰️ DEPLOY MESSAGE THROUGH SECURE TUNNEL ]";
+                } else {
+                    formStatus.style.color = "#ff5555";
+                    formStatus.textContent = "ACCESS DENIED: Transmission failed. Check parameters.";
+                    submitBtn.textContent = "[ 🛰️ DEPLOY MESSAGE THROUGH SECURE TUNNEL ]";
+                }
+            } catch (error) {
                 formStatus.style.color = "#ff5555";
-                formStatus.textContent = "ACCESS DENIED: Transmission failed. Check parameters.";
+                formStatus.textContent = "FATAL: Network socket unreachable.";
                 submitBtn.textContent = "[ 🛰️ DEPLOY MESSAGE THROUGH SECURE TUNNEL ]";
             }
-        } catch (error) {
-            formStatus.style.color = "#ff5555";
-            formStatus.textContent = "FATAL: Network socket unreachable.";
-            submitBtn.textContent = "[ 🛰️ DEPLOY MESSAGE THROUGH SECURE TUNNEL ]";
-        }
-    });
-}
+        });
+    }
+});
