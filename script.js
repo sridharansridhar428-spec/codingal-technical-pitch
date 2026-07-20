@@ -58,21 +58,23 @@ function typeWriter() {
     
     if (!targetElement) return;
 
-    // Check if the current substring ends inside an HTML tag (e.g., "& <br") to avoid splitting tags mid-stream
     let rawText = currentRole.substring(0, charIndex);
-    if (rawText.endsWith("&") || rawText.endsWith("& ") || rawText.endsWith("& <") || rawText.endsWith("& <b") || rawText.endsWith("& <br")) {
-        if (!isDeleting) {
-            charIndex = currentRole.indexOf(">", charIndex) + 1;
-            if (charIndex === 0) charIndex = currentRole.length;
+
+    // Skip over the <br> tag instantly during typing
+    if (!isDeleting && rawText.includes("&") && !rawText.includes(">")) {
+        const brIndex = currentRole.indexOf(">", charIndex);
+        if (brIndex !== -1) {
+            charIndex = brIndex + 1;
             rawText = currentRole.substring(0, charIndex);
         }
+    } 
+    // Skip backward over the <br> tag during deleting
+    else if (isDeleting && rawText.endsWith("<br>")) {
+        charIndex = currentRole.lastIndexOf("<", charIndex);
+        rawText = currentRole.substring(0, charIndex);
     }
 
     if (isDeleting) {
-        // If deleting hits a closing tag or break, skip past it cleanly
-        if (rawText.endsWith("/>") || rawText.endsWith("<br>")) {
-            charIndex = currentRole.lastIndexOf("<", charIndex);
-        }
         targetElement.innerHTML = currentRole.substring(0, charIndex - 1);
         charIndex--;
     } else {
@@ -89,6 +91,7 @@ function typeWriter() {
         isDeleting = false;
         roleIndex = (roleIndex + 1) % titles.length;
         typeDelay = 400;
+        charIndex = 0; // Ensures clean reset for the next loop loop
     }
 
     setTimeout(typeWriter, typeDelay);
