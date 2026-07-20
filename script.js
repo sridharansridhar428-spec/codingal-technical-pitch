@@ -53,8 +53,8 @@ const submitBtn = document.getElementById('submit-btn');
 
 if (contactForm) {
     contactForm.addEventListener('submit', async function(e) {
-        e.preventDefault();
-        submitBtn.textContent = "[ TRANSMITTING PACKETS... ]";
+        e.preventDefault(); // Prevents page reload and jumping to the top
+        submitBtn.textContent = "[ ESTABLISHING HANDSHAKE... ]";
         
         const data = new FormData(contactForm);
         
@@ -69,12 +69,12 @@ if (contactForm) {
             
             if (response.ok) {
                 formStatus.style.color = "var(--accent-teal)";
-                formStatus.textContent = "SUCCESS: Transmission deployed. Signal received!";
+                formStatus.textContent = "ACCESS GRANTED: Transmission accepted & packets delivered.";
                 contactForm.reset();
                 submitBtn.textContent = "[ 🛰️ DEPLOY MESSAGE THROUGH SECURE TUNNEL ]";
             } else {
                 formStatus.style.color = "#ff5555";
-                formStatus.textContent = "ERROR: Transmission failed. Check link parameters.";
+                formStatus.textContent = "ACCESS DENIED: Transmission failed. Check parameters.";
                 submitBtn.textContent = "[ 🛰️ DEPLOY MESSAGE THROUGH SECURE TUNNEL ]";
             }
         } catch (error) {
