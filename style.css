@@ -128,33 +128,32 @@ body, a, button, input, textarea, .project-node {
     gap: 40px;
     align-items: start; /* Locks both the text column and image column to the top edge to prevent vertical layout shifting */
 }
-
 @media (min-width: 768px) {
     .hero-grid {
-        grid-template-columns: 1.5fr 1fr;
+        grid-template-columns: 2fr 1fr; /* Gives more width to the left text column */
     }
 }
 
-.hero-text {
-    display: flex;
-    flex-direction: column;
-}
-
-.terminal-status {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
+.hero-subtitle {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text-muted);
     font-family: 'JetBrains Mono', monospace;
-    color: var(--accent-teal);
-    font-size: 0.85rem;
-    background: rgba(0, 242, 254, 0.05);
-    padding: 6px 14px;
-    border-radius: 4px;
-    border: 1px solid rgba(0, 242, 254, 0.15);
     margin-bottom: 25px;
-    letter-spacing: 0.5px;
+    line-height: 1.5;
+    display: block;
+    width: 100%;
+    min-height: 4rem; /* Slightly increased to comfortably accommodate wrapped multi-line titles */
 }
 
+.typewriter-text {
+    color: var(--accent-teal);
+    border-right: 2px solid var(--accent-teal);
+    white-space: normal; /* Allows long roles to wrap to the next line naturally */
+    word-break: break-word;
+    animation: cursorBlink 0.75s step-end infinite;
+    padding-right: 2px;
+}
 .status-dot.blink {
     width: 8px;
     height: 8px;
