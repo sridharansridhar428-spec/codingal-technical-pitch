@@ -178,7 +178,7 @@ body, a, button, input, textarea, .project-node {
     color: var(--text-white);
 }
 
-/* Dynamic Rotating Subtitle Styles with Structural Height Lock */
+/* Dynamic Rotating Subtitle Styles with Structural Height Lock & Wrap Stability */
 .hero-subtitle {
     font-size: 1.15rem;
     font-weight: 600;
@@ -188,7 +188,7 @@ body, a, button, input, textarea, .project-node {
     line-height: 1.5;
     display: block;
     width: 100%;
-    min-height: 4rem; /* Locks a fixed vertical height box to prevent layout jumping when switching string lengths */
+    min-height: 3.8rem; /* Locks sufficient vertical box height to prevent layout reflows */
 }
 
 .typewriter-wrapper {
@@ -199,7 +199,7 @@ body, a, button, input, textarea, .project-node {
 .typewriter-text {
     color: var(--accent-teal);
     border-right: 2px solid var(--accent-teal);
-    white-space: normal;
+    white-space: pre-wrap; /* Keeps spaces intact and allows safe line wrapping without pushing content */
     word-break: break-word;
     animation: cursorBlink 0.75s step-end infinite;
     padding-right: 2px;
@@ -663,7 +663,7 @@ body, a, button, input, textarea, .project-node {
     transition: color 0.2s;
 }
 
-.social-title-links a:hover {
+.social-terminal-links a:hover {
     color: var(--accent-teal);
 }
 
