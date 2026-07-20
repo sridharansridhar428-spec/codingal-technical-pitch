@@ -188,7 +188,7 @@ body, a, button, input, textarea, .project-node {
     line-height: 1.5;
     display: block;
     width: 100%;
-    min-height: 3.8rem; /* Locks sufficient vertical box height to prevent layout reflows */
+    min-height: 5.8rem; /* Locks sufficient vertical box height to prevent layout reflows */
 }
 
 .typewriter-wrapper {
