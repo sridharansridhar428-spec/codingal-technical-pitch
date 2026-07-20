@@ -126,13 +126,12 @@ body, a, button, input, textarea, .project-node {
     display: grid;
     grid-template-columns: 1fr;
     gap: 40px;
-    align-items: center;
+    align-items: start; /* Locks both the text column and image column to the top edge to prevent vertical layout shifting */
 }
 
 @media (min-width: 768px) {
     .hero-grid {
         grid-template-columns: 1.5fr 1fr;
-        align-items: center;
     }
 }
 
@@ -187,9 +186,10 @@ body, a, button, input, textarea, .project-node {
     font-family: 'JetBrains Mono', monospace;
     margin-bottom: 25px;
     line-height: 1.5;
-    /* Fixed block display with explicit height bounds to prevent layout reflow */
+    /* Fixed block display with explicit height bounds to prevent layout reflow and text clipping */
     display: block;
-    min-height: 2.5rem;
+    width: 100%;
+    min-height: 3.5rem;
 }
 
 .typewriter-wrapper {
@@ -199,7 +199,8 @@ body, a, button, input, textarea, .project-node {
 .typewriter-text {
     color: var(--accent-teal);
     border-right: 2px solid var(--accent-teal);
-    white-space: nowrap;
+    white-space: normal; /* Allows long roles to wrap cleanly instead of clipping or breaking out */
+    word-break: break-word;
     animation: cursorBlink 0.75s step-end infinite;
     padding-right: 2px;
 }
@@ -220,7 +221,7 @@ body, a, button, input, textarea, .project-node {
 .hero-img-container {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
 }
 
 .hero-profile-img {
@@ -611,7 +612,9 @@ body, a, button, input, textarea, .project-node {
 }
 
 .contact-form {
-    title { display: flex; flex-direction: column; gap: 15px; }
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 .form-group {
