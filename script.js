@@ -42,6 +42,6 @@ document.querySelectorAll('.portfolio-section').forEach(section => {
 document.addEventListener("DOMContentLoaded", () => {
     const targetElement = document.getElementById('dynamic-role');
     if (targetElement) {
-        targetElement.innerHTML = "Full-Stack Application Developer &<br>Core Network Operator";
+        targetElement.innerHTML = "Full-Stack Application Developer &\nCore Network Operator","Solutions Architect &\nNetwork Infrastructure Engineer";
     }
 });
