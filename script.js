@@ -40,9 +40,9 @@ document.querySelectorAll('.portfolio-section').forEach(section => {
 
 // Dynamic Typewriter / Fading Rotation Engine
 const titles = [
-    "Application Engineer & Network Topologist",
-    "Solutions Architect & Network Infrastructure Engineer",
-    "Full-Stack Application Developer & Core Network Operator"
+    "Application Engineer & <br>Network Topologist",
+    "Solutions Architect & <br>Network Infrastructure Engineer",
+    "Full-Stack Application Developer & <br>Core Network Operator"
 ];
 
 let roleIndex = 0;
@@ -53,27 +53,41 @@ const deletingSpeed = 35;
 const pauseTime = 2200;
 
 function typeWriter() {
-    const currentRole = roles[roleIndex];
+    const currentRole = titles[roleIndex];
     const targetElement = document.getElementById('dynamic-role');
     
     if (!targetElement) return;
 
+    // Check if the current substring ends inside an HTML tag (e.g., "& <br") to avoid splitting tags mid-stream
+    let rawText = currentRole.substring(0, charIndex);
+    if (rawText.endsWith("&") || rawText.endsWith("& ") || rawText.endsWith("& <") || rawText.endsWith("& <b") || rawText.endsWith("& <br")) {
+        if (!isDeleting) {
+            charIndex = currentRole.indexOf(">", charIndex) + 1;
+            if (charIndex === 0) charIndex = currentRole.length;
+            rawText = currentRole.substring(0, charIndex);
+        }
+    }
+
     if (isDeleting) {
-        targetElement.textContent = currentRole.substring(0, charIndex - 1);
+        // If deleting hits a closing tag or break, skip past it cleanly
+        if (rawText.endsWith("/>") || rawText.endsWith("<br>")) {
+            charIndex = currentRole.lastIndexOf("<", charIndex);
+        }
+        targetElement.innerHTML = currentRole.substring(0, charIndex - 1);
         charIndex--;
     } else {
-        targetElement.textContent = currentRole.substring(0, charIndex + 1);
+        targetElement.innerHTML = rawText;
         charIndex++;
     }
 
     let typeDelay = isDeleting ? deletingSpeed : typingSpeed;
 
-    if (!isDeleting && charIndex === currentRole.length) {
+    if (!isDeleting && charIndex > currentRole.length) {
         typeDelay = pauseTime;
         isDeleting = true;
-    } else if (isDeleting && charIndex === 0) {
+    } else if (isDeleting && charIndex <= 0) {
         isDeleting = false;
-        roleIndex = (roleIndex + 1) % roles.length;
+        roleIndex = (roleIndex + 1) % titles.length;
         typeDelay = 400;
     }
 
