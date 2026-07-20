@@ -176,17 +176,32 @@
             font-size: 3.5rem;
             font-weight: 800;
             letter-spacing: -1px;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             color: var(--text-white);
         }
 
+        /* Dynamic Rotating Subtitle Styles */
         .hero-subtitle {
             font-size: 1.15rem;
             font-weight: 600;
-            color: var(--accent-teal);
+            color: var(--text-muted);
             font-family: 'JetBrains Mono', monospace;
             margin-bottom: 25px;
             line-height: 1.5;
+            min-height: 1.8em;
+        }
+
+        .typewriter-text {
+            color: var(--accent-teal);
+            border-right: 2px solid var(--accent-teal);
+            white-space: nowrap;
+            animation: cursorBlink 0.75s step-end infinite;
+            padding-right: 2px;
+        }
+
+        @keyframes cursorBlink {
+            from, to { border-color: transparent }
+            50% { border-color: var(--accent-teal); }
         }
 
         .hero-description {
@@ -256,8 +271,6 @@
         .portfolio-section {
             padding: 80px 0;
             border-bottom: 1px solid var(--border-color);
-            opacity: 1; /* Fixed visibility default */
-            transform: translateY(0);
         }
 
         .section-tag {
@@ -268,7 +281,6 @@
             text-transform: uppercase;
         }
 
-        /* Grids and Layouts */
         .skills-grid {
             display: grid;
             grid-template-columns: 1fr;
@@ -694,7 +706,12 @@
                         <span>SYSTEM: ONLINE // PORT_8080: ACTIVE</span>
                     </div>
                     <h1 class="hero-title">Hey, I'm Sridharan</h1>
-                    <h2 class="hero-subtitle">[ Application Engineer & Network Topologist ⟷ Solutions Architect & Network Infrastructure Engineer ⟷ Full-Stack Application Developer & Core Network Operator ]</h2>
+                    
+                    <!-- Dynamic Typewriter Rotating Subtitle -->
+                    <h2 class="hero-subtitle">
+                        <span>[ </span><span class="typewriter-text" id="dynamic-role">Application Engineer & Network Topologist</span><span> ]</span>
+                    </h2>
+
                     <p class="hero-description">
                         Specialized in developing end-to-end full-stack architectures and configuring the network infrastructures that power them. I transform complex business logic into clean, production-ready code modules while ensuring data safely navigates from client view to server node.
                     </p>
@@ -808,7 +825,7 @@
                         </div>
                         <div class="project-actions">
                             <a href="https://sridharansridhar428-spec.github.io/codingal-technical-pitch/" target="_blank" class="btn-primary-sm">Launch Live</a>
-                            <a href="https://github.com/sridharansridhar428-spec" target="_blank" class="btn-secondary-sm">Repository</a>
+                            <a href="https://sridharansridhar428-spec.github.io/codingal-technical-pitch/" target="_blank" class="btn-secondary-sm">Repository</a>
                         </div>
                     </div>
                 </div>
@@ -889,10 +906,10 @@
                         <span style="color: var(--accent-teal);">📍</span> <strong>Node Grid:</strong> <span style="color: var(--text-muted);">Nagapattinam, Tamil Nadu, India</span>
                     </div>
                     <div class="social-terminal-links">
-                        <a href="https://github.com/sridharansridhar428-spec" target="_blank">
+                        <a href="https://github.com/" target="_blank">
                             <span style="color: var(--accent-teal);">💻</span> GitHub
                         </a>
-                        <a href="https://www.linkedin.com/in/sridharan-p-b382302a8/" target="_blank">
+                        <a href="https://linkedin.com/" target="_blank">
                             <span style="color: var(--accent-teal);">🔗</span> LinkedIn
                         </a>
                     </div>
@@ -917,7 +934,7 @@
         </section>
     </main>
 
-    <!-- Custom Cursor & Scroll Animation Engine Script -->
+    <!-- Custom Cursor & Typewriter Animation Engine Script -->
     <script>
         const cursorDot = document.querySelector('.custom-cursor.dot');
         const cursorOutline = document.querySelector('.custom-cursor.outline');
@@ -938,6 +955,52 @@
         document.querySelectorAll('a, button, input, textarea, .project-node').forEach(el => {
             el.addEventListener('mouseenter', () => cursorOutline && cursorOutline.classList.add('hovered'));
             el.addEventListener('mouseleave', () => cursorOutline && cursorOutline.classList.remove('hovered'));
+        });
+
+        // Dynamic Typewriter / Fading Rotation Engine
+        const roles = [
+            "Application Engineer & Network Topologist",
+            "Solutions Architect & Network Infrastructure Engineer",
+            "Full-Stack Application Developer & Core Network Operator"
+        ];
+
+        let roleIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typingSpeed = 70;
+        const deletingSpeed = 35;
+        const pauseTime = 2200;
+
+        function typeWriter() {
+            const currentRole = roles[roleIndex];
+            const targetElement = document.getElementById('dynamic-role');
+            
+            if (!targetElement) return;
+
+            if (isDeleting) {
+                targetElement.textContent = currentRole.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                targetElement.textContent = currentRole.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let typeDelay = isDeleting ? deletingSpeed : typingSpeed;
+
+            if (!isDeleting && charIndex === currentRole.length) {
+                typeDelay = pauseTime;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                roleIndex = (roleIndex + 1) % roles.length;
+                typeDelay = 400;
+            }
+
+            setTimeout(typeWriter, typeDelay);
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            setTimeout(typeWriter, 800);
         });
     </script>
 

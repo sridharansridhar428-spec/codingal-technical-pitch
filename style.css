@@ -169,26 +169,39 @@ body, a, button, input, textarea, .project-node {
     font-size: 3.5rem;
     font-weight: 800;
     letter-spacing: -1px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     color: var(--text-white);
 }
 
+/* Dynamic Rotating Subtitle Styles */
 .hero-subtitle {
-    font-size: 1.2rem;
+    font-size: 1.15rem;
     font-weight: 600;
-    color: var(--accent-teal);
-    margin-bottom: 25px;
+    color: var(--text-muted);
     font-family: 'JetBrains Mono', monospace;
-    line-height: 1.4;
+    margin-bottom: 25px;
+    line-height: 1.5;
+    min-height: 1.8em;
 }
 
-.typing-cursor {
-    animation: blinkCursor 0.7s infinite;
+.typewriter-text {
+    color: var(--accent-teal);
+    border-right: 2px solid var(--accent-teal);
+    white-space: nowrap;
+    animation: cursorBlink 0.75s step-end infinite;
+    padding-right: 2px;
 }
 
-@keyframes blinkCursor {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
+@keyframes cursorBlink {
+    from, to { border-color: transparent }
+    50% { border-color: var(--accent-teal); }
+}
+
+.hero-description {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    max-width: 700px;
+    margin-bottom: 35px;
 }
 
 .hero-img-container {
@@ -276,8 +289,12 @@ body, a, button, input, textarea, .project-node {
 }
 
 @media (min-width: 768px) {
-    .skills-grid { grid-template-columns: 1fr 1fr; }
-    .contact-container { grid-template-columns: 1.2fr 1fr; }
+    .skills-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    .contact-container {
+        grid-template-columns: 1.2fr 1fr;
+    }
 }
 
 .education-block, .experience-block, .achievements-block {
@@ -401,7 +418,7 @@ body, a, button, input, textarea, .project-node {
 }
 
 .project-node {
-    background: #0d1520; 
+    background: #0d1520;
     border: 1px solid var(--border-color);
     border-radius: 8px;
     overflow: hidden;
@@ -553,7 +570,7 @@ body, a, button, input, textarea, .project-node {
 }
 
 .skills-list {
-    list-style: None;
+    list-style: none;
 }
 
 .skills-list li {
