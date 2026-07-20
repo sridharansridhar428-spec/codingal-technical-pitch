@@ -124,7 +124,7 @@ body, a, button, input, textarea, .project-node {
 
 .hero-grid {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 2fr 1fr;
     gap: 40px;
     align-items: start;
 }
