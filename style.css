@@ -115,7 +115,6 @@ body, a, button, input, textarea, .project-node {
 .nav-links a:hover {
     color: var(--accent-teal);
 }
-
 /* Hero Layout Grid & Stability Fixes */
 .hero-section {
     padding: 80px 0;
@@ -187,10 +186,13 @@ body, a, button, input, textarea, .project-node {
     font-family: 'JetBrains Mono', monospace;
     margin-bottom: 25px;
     line-height: 1.5;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 4px;
+    /* Use block display with a fixed min-width/height container so text wrapping doesn't push the paragraph below */
+    display: block;
+    min-height: 2.5rem;
+}
+
+.typewriter-wrapper {
+    display: inline-block;
 }
 
 .typewriter-text {
