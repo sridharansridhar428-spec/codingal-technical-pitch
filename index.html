@@ -935,22 +935,22 @@
                 [ INBOUND_MESSAGE_TRANSMISSION ]<br>
                 ⚡ TRANSMISSION PROTOCOL: Looking to scale your technical infrastructure, review source repositories, or onboard a dedicated engineer who gets things running? Drop your credentials below to inject an automated ping directly into my command console. Let's build something heavy.
             </p>
-            <form action="https://formspree.io/f/mkodbbvy" method="POST" class="contact-form">
-                <div class="form-group">
-                    <label>Your Name:</label>
-                    <input type="text" name="name" placeholder="Your Name" required>
-                </div>
-                <div class="form-group">
-                    <label>Your Email:</label>
-                    <input type="email" name="email" placeholder="name@example.com" required>
-                </div>
-                <div class="form-group">
-                    <label>Message:</label>
-                    <textarea name="message" rows="4" placeholder="Your message here..." required></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px; cursor: none !important;">[ 🛰️ DEPLOY MESSAGE THROUGH SECURE TUNNEL ]</button>
-            </form>
-        </div>
+            <form id="contact-form" class="contact-form">
+    <div class="form-group">
+        <label>Your Name:</label>
+        <input type="text" name="name" placeholder="Your Name" required>
+    </div>
+    <div class="form-group">
+        <label>Your Email:</label>
+        <input type="email" name="email" placeholder="name@example.com" required>
+    </div>
+    <div class="form-group">
+        <label>Message:</label>
+        <textarea name="message" rows="4" placeholder="Your message here..." required></textarea>
+    </div>
+    <button type="submit" id="submit-btn" class="btn btn-primary" style="width: 100%; margin-top: 10px; cursor: none !important;">[ 🛰️ DEPLOY MESSAGE THROUGH SECURE TUNNEL ]</button>
+    <p id="form-status" style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; margin-top: 10px; text-align: center;"></p>
+</form>
     </div>
 </section>
     </main>
