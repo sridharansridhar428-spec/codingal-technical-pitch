@@ -38,10 +38,10 @@ document.querySelectorAll('.portfolio-section').forEach(section => {
     observer.observe(section);
 });
 
-// Single Static Title with proper HTML rendering
+// Clean Static Title with HTML line break
 document.addEventListener("DOMContentLoaded", () => {
     const targetElement = document.getElementById('dynamic-role');
     if (targetElement) {
-        targetElement.innerHTML = "Solutions Architect &<br>Network Infrastructure";
+        targetElement.innerHTML = "Full-Stack Application Developer &<br>Core Network Operator";
     }
 });
