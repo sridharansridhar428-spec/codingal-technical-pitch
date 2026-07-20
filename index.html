@@ -842,8 +842,8 @@
                             <span>Gunicorn</span>
                         </div>
                         <div class="project-actions">
-                            <a href="https://sridharansridhar428-spec.github.io/codingal-technical-pitch/" target="_blank" class="btn-primary-sm">Launch Live</a>
-                            <a href="https://sridharansridhar428-spec.github.io/codingal-technical-pitch/" target="_blank" class="btn-secondary-sm">Repository</a>
+                            <a href="https://invitation-maker-v2.onrender.com/login/" target="_blank" class="btn-primary-sm">Launch Live</a>
+                            <a href="https://github.com/sridharansridhar428-spec/invitation-maker-v2/" target="_blank" class="btn-secondary-sm">Repository</a>
                         </div>
                     </div>
                 </div>
@@ -935,18 +935,18 @@
                 [ INBOUND_MESSAGE_TRANSMISSION ]<br>
                 ⚡ TRANSMISSION PROTOCOL: Looking to scale your technical infrastructure, review source repositories, or onboard a dedicated engineer who gets things running? Drop your credentials below to inject an automated ping directly into my command console. Let's build something heavy.
             </p>
-            <form class="contact-form">
+            <form action="https://formspree.io/f/mkodbbvy" method="POST" class="contact-form">
                 <div class="form-group">
                     <label>Your Name:</label>
-                    <input type="text" placeholder="Your Name" required>
+                    <input type="text" name="name" placeholder="Your Name" required>
                 </div>
                 <div class="form-group">
                     <label>Your Email:</label>
-                    <input type="email" placeholder="name@example.com" required>
+                    <input type="email" name="email" placeholder="name@example.com" required>
                 </div>
                 <div class="form-group">
                     <label>Message:</label>
-                    <textarea rows="4" placeholder="Your message here..." required></textarea>
+                    <textarea name="message" rows="4" placeholder="Your message here..." required></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px; cursor: none !important;">[ 🛰️ DEPLOY MESSAGE THROUGH SECURE TUNNEL ]</button>
             </form>
@@ -980,9 +980,9 @@
 
         // Dynamic Typewriter / Fading Rotation Engine
         const roles = [
-            "Application Engineer &<div>Network Topologist",
-            "Solutions Architect &<div>Network Infrastructure Engineer",
-            "Full-Stack Application Developer &<div>Core Network Operator"
+            "Application Engineer &<br>Network Topologist",
+            "Solutions Architect &<br>Network Infrastructure Engineer",
+            "Full-Stack Application Developer &<br>Core Network Operator"
         ];
 
         let roleIndex = 0;
@@ -999,10 +999,10 @@
             if (!targetElement) return;
 
             if (isDeleting) {
-                targetElement.textContent = currentRole.substring(0, charIndex - 1);
+                targetElement.innerHTML = currentRole.substring(0, charIndex - 1);
                 charIndex--;
             } else {
-                targetElement.textContent = currentRole.substring(0, charIndex + 1);
+                targetElement.innerHTML = currentRole.substring(0, charIndex + 1);
                 charIndex++;
             }
 
