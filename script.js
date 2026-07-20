@@ -38,7 +38,7 @@ document.querySelectorAll('.portfolio-section').forEach(section => {
     observer.observe(section);
 });
 
-// Dynamic Typewriter / Fading Rotation Engine
+// Dynamic Typewriter Engine (Token-based to handle <br> safely)
 const titles = [
     "Application Engineer & <br>Network Topologist",
     "Solutions Architect & <br>Network Infrastructure Engineer",
@@ -48,53 +48,47 @@ const titles = [
 let roleIndex = 0;
 let charIndex = 0;
 let isDeleting = false;
-const typingSpeed = 70;
-const deletingSpeed = 35;
+const typingSpeed = 60;
+const deletingSpeed = 30;
 const pauseTime = 2200;
 
 function typeWriter() {
-    const currentRole = titles[roleIndex];
     const targetElement = document.getElementById('dynamic-role');
-    
     if (!targetElement) return;
 
-    let rawText = currentRole.substring(0, charIndex);
+    const currentRole = titles[roleIndex];
 
-    // Skip over the <br> tag instantly during typing
-    if (!isDeleting && rawText.includes("&") && !rawText.includes(">")) {
-        const brIndex = currentRole.indexOf(">", charIndex);
-        if (brIndex !== -1) {
-            charIndex = brIndex + 1;
-            rawText = currentRole.substring(0, charIndex);
+    if (!isDeleting) {
+        // If we hit an HTML tag, advance past it immediately in one go
+        if (currentRole.substr(charIndex, 5) === "<br>") {
+            charIndex += 5;
         }
-    } 
-    // Skip backward over the <br> tag during deleting
-    else if (isDeleting && rawText.endsWith("<br>")) {
-        charIndex = currentRole.lastIndexOf("<", charIndex);
-        rawText = currentRole.substring(0, charIndex);
-    }
-
-    if (isDeleting) {
-        targetElement.innerHTML = currentRole.substring(0, charIndex - 1);
-        charIndex--;
-    } else {
-        targetElement.innerHTML = rawText;
         charIndex++;
+        targetElement.innerHTML = currentRole.substring(0, charIndex);
+
+        if (charIndex >= currentRole.length) {
+            isDeleting = true;
+            setTimeout(typeWriter, pauseTime);
+            return;
+        }
+        setTimeout(typeWriter, typingSpeed);
+    } else {
+        // If deleting hits an HTML tag, skip backward past it immediately
+        if (currentRole.substr(charIndex - 5, 5) === "<br>") {
+            charIndex -= 5;
+        }
+        charIndex--;
+        targetElement.innerHTML = currentRole.substring(0, charIndex);
+
+        if (charIndex <= 0) {
+            isDeleting = false;
+            roleIndex = (roleIndex + 1) % titles.length;
+            charIndex = 0;
+            setTimeout(typeWriter, 400);
+            return;
+        }
+        setTimeout(typeWriter, deletingSpeed);
     }
-
-    let typeDelay = isDeleting ? deletingSpeed : typingSpeed;
-
-    if (!isDeleting && charIndex > currentRole.length) {
-        typeDelay = pauseTime;
-        isDeleting = true;
-    } else if (isDeleting && charIndex <= 0) {
-        isDeleting = false;
-        roleIndex = (roleIndex + 1) % titles.length;
-        typeDelay = 400;
-        charIndex = 0; // Ensures clean reset for the next loop loop
-    }
-
-    setTimeout(typeWriter, typeDelay);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
