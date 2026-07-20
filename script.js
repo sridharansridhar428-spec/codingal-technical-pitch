@@ -39,7 +39,7 @@ document.querySelectorAll('.portfolio-section').forEach(section => {
 });
 
 // Dynamic Typewriter / Fading Rotation Engine
-const roles = [
+const titles = [
     "Application Engineer & Network Topologist",
     "Solutions Architect & Network Infrastructure Engineer",
     "Full-Stack Application Developer & Core Network Operator"
