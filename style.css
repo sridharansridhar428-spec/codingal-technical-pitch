@@ -126,34 +126,35 @@ body, a, button, input, textarea, .project-node {
     display: grid;
     grid-template-columns: 1fr;
     gap: 40px;
-    align-items: start; /* Locks both the text column and image column to the top edge to prevent vertical layout shifting */
+    align-items: start;
 }
+
 @media (min-width: 768px) {
     .hero-grid {
-        grid-template-columns: 2fr 1fr; /* Gives more width to the left text column */
+        grid-template-columns: 2fr 1fr;
     }
 }
 
-.hero-subtitle {
-    font-size: 1.15rem;
-    font-weight: 600;
-    color: var(--text-muted);
-    font-family: 'JetBrains Mono', monospace;
-    margin-bottom: 25px;
-    line-height: 1.5;
-    display: block;
-    width: 100%;
-    min-height: 4rem; /* Slightly increased to comfortably accommodate wrapped multi-line titles */
+.hero-text {
+    display: flex;
+    flex-direction: column;
 }
 
-.typewriter-text {
+.terminal-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'JetBrains Mono', monospace;
     color: var(--accent-teal);
-    border-right: 2px solid var(--accent-teal);
-    white-space: normal; /* Allows long roles to wrap to the next line naturally */
-    word-break: break-word;
-    animation: cursorBlink 0.75s step-end infinite;
-    padding-right: 2px;
+    font-size: 0.85rem;
+    background: rgba(0, 242, 254, 0.05);
+    padding: 6px 14px;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 242, 254, 0.15);
+    margin-bottom: 25px;
+    letter-spacing: 0.5px;
 }
+
 .status-dot.blink {
     width: 8px;
     height: 8px;
@@ -177,7 +178,7 @@ body, a, button, input, textarea, .project-node {
     color: var(--text-white);
 }
 
-/* Dynamic Rotating Subtitle Styles */
+/* Dynamic Rotating Subtitle Styles with Structural Height Lock */
 .hero-subtitle {
     font-size: 1.15rem;
     font-weight: 600;
@@ -185,8 +186,9 @@ body, a, button, input, textarea, .project-node {
     font-family: 'JetBrains Mono', monospace;
     margin-bottom: 25px;
     line-height: 1.5;
-    display: inline-block;
-    max-width: 100%;
+    display: block;
+    width: 100%;
+    min-height: 4rem; /* Locks a fixed vertical height box to prevent layout jumping when switching string lengths */
 }
 
 .typewriter-wrapper {
@@ -197,7 +199,7 @@ body, a, button, input, textarea, .project-node {
 .typewriter-text {
     color: var(--accent-teal);
     border-right: 2px solid var(--accent-teal);
-    white-space: normal; /* Allows the text to wrap safely onto the next line instead of overflowing */
+    white-space: normal;
     word-break: break-word;
     animation: cursorBlink 0.75s step-end infinite;
     padding-right: 2px;
@@ -661,7 +663,7 @@ body, a, button, input, textarea, .project-node {
     transition: color 0.2s;
 }
 
-.social-terminal-links a:hover {
+.social-title-links a:hover {
     color: var(--accent-teal);
 }
 
