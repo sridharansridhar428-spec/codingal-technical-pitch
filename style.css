@@ -174,12 +174,12 @@ body, a, button, input, textarea, .project-node {
 }
 
 .hero-subtitle {
-    font-size: 1.35rem;
+    font-size: 1.2rem;
     font-weight: 600;
-    color: var(--text-muted);
-    margin-bottom: 35px;
-    min-height: 2em;
+    color: var(--accent-teal);
+    margin-bottom: 25px;
     font-family: 'JetBrains Mono', monospace;
+    line-height: 1.4;
 }
 
 .typing-cursor {
@@ -251,6 +251,14 @@ body, a, button, input, textarea, .project-node {
 .portfolio-section {
     padding: 80px 0;
     border-bottom: 1px solid var(--border-color);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.portfolio-section.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .section-tag {
@@ -458,6 +466,7 @@ body, a, button, input, textarea, .project-node {
     height: 100%;
     object-fit: cover;
     opacity: 0.85;
+    transition: opacity 0.3s ease;
 }
 
 .project-name {
@@ -544,7 +553,7 @@ body, a, button, input, textarea, .project-node {
 }
 
 .skills-list {
-    list-style: none;
+    list-style: None;
 }
 
 .skills-list li {

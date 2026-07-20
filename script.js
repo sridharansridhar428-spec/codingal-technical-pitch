@@ -1,19 +1,34 @@
-// Custom Cursor Movement Tracking
+// Custom Cursor Movement Tracking with RequestAnimationFrame for Smooth Rendering
 const cursorDot = document.querySelector('.custom-cursor.dot');
 const cursorOutline = document.querySelector('.custom-cursor.outline');
 
+let mouseX = 0;
+let mouseY = 0;
+let outlineX = 0;
+let outlineY = 0;
+
 window.addEventListener('mousemove', (e) => {
-    const posX = e.clientX;
-    const posY = e.clientY;
+    mouseX = e.clientX;
+    mouseY = e.clientY;
 
-    if (cursorDot && cursorOutline) {
-        cursorDot.style.left = `${posX}px`;
-        cursorDot.style.top = `${posY}px`;
-
-        cursorOutline.style.left = `${posX}px`;
-        cursorOutline.style.top = `${posY}px`;
+    if (cursorDot) {
+        cursorDot.style.left = `${mouseX}px`;
+        cursorDot.style.top = `${mouseY}px`;
     }
 });
+
+// Smooth lagging outline animation loop
+function renderCursor() {
+    if (cursorOutline) {
+        outlineX += (mouseX - outlineX) * 0.2;
+        outlineY += (mouseY - outlineY) * 0.2;
+        
+        cursorOutline.style.left = `${outlineX}px`;
+        cursorOutline.style.top = `${outlineY}px`;
+    }
+    requestAnimationFrame(renderCursor);
+}
+requestAnimationFrame(renderCursor);
 
 // Interactive elements hover effects for custom cursor
 const interactiveElements = document.querySelectorAll('a, button, input, textarea, .project-node, .badge-node');
