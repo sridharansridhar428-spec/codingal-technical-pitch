@@ -1,98 +1,74 @@
-/**
- * Sridharan Portfolio Core Operations Engine
- * -----------------------------------------
- * Tracks viewport entries, handles precision canvas pointers,
- * and manages alphanumeric text decryption animations.
- */
-
-// --- 1. SMOOTH SCROLL MECHANISM ---
-document.querySelectorAll('a[href^="#"]').forEach(link => {
-    link.addEventListener('click', e => {
-        e.preventDefault();
-        const target = document.querySelector(link.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({ behavior: 'smooth' });
-        }
-    });
-});
-
-// --- 2. INTERACTIVE CURSOR DYNAMICS ENGINE ---
+// Custom Cursor Movement Tracking
 const cursorDot = document.querySelector('.custom-cursor.dot');
 const cursorOutline = document.querySelector('.custom-cursor.outline');
 
-// Only calculate coordinates if the cursor elements exist on the layout array
-if (cursorDot && cursorOutline) {
-    window.addEventListener('mousemove', (e) => {
-        const posX = e.clientX;
-        const posY = e.clientY;
+window.addEventListener('mousemove', (e) => {
+    const posX = e.clientX;
+    const posY = e.clientY;
 
-        // Instantly transition inner core, apply transitional buffer to trailing outline
+    if (cursorDot && cursorOutline) {
         cursorDot.style.left = `${posX}px`;
         cursorDot.style.top = `${posY}px`;
-        
+
         cursorOutline.style.left = `${posX}px`;
         cursorOutline.style.top = `${posY}px`;
+    }
+});
+
+// Interactive elements hover effects for custom cursor
+const interactiveElements = document.querySelectorAll('a, button, input, textarea, .project-node, .badge-node');
+interactiveElements.forEach((el) => {
+    el.addEventListener('mouseenter', () => {
+        if (cursorOutline) cursorOutline.classList.add('hovered');
     });
-
-    // Handle expansion transitions across interactive hardware targets
-    const triggerElements = document.querySelectorAll('a, button, .project-node, input, textarea');
-    triggerElements.forEach((element) => {
-        element.addEventListener('mouseenter', () => {
-            cursorOutline.classList.add('hovered');
-        });
-        element.addEventListener('mouseleave', () => {
-            cursorOutline.classList.remove('hovered');
-        });
-    });
-}
-
-// --- 3. CRYPTOGRAPHIC LINK SCRAMBLE EFFECT ---
-const navigationLinks = document.querySelectorAll('nav a, .action-buttons a, .social-links a, .btn-primary-sm, .btn-secondary-sm');
-
-navigationLinks.forEach(link => {
-    link.addEventListener('click', function(e) {
-        const targetAttribute = this.getAttribute('href');
-        
-        // If it is an external link or form button simulation, let default action apply
-        if (!targetAttribute || targetAttribute === '#' || !targetAttribute.startsWith('#')) return;
-
-        const originalText = this.innerText;
-        const matrixChars = "$%&—+*<>-_[]{}ÿÆŒØ#01";
-        let iterationProgress = 0;
-        
-        const scrambleInterval = setInterval(() => {
-            this.innerText = originalText
-                .split("")
-                .map((char, index) => {
-                    if(index < iterationProgress) {
-                        return originalText[index];
-                    }
-                    return matrixChars[Math.floor(Math.random() * matrixChars.length)];
-                })
-                .join("");
-            
-            if(iterationProgress >= originalText.length) {
-                clearInterval(scrambleInterval);
-                this.innerText = originalText; // Restore target baseline
-            }
-            
-            iterationProgress += 1 / 2;
-        }, 30);
+    el.addEventListener('mouseleave', () => {
+        if (cursorOutline) cursorOutline.classList.remove('hovered');
     });
 });
 
-// --- 4. VIEWPORT ENGINE SCROLL VISIBILITY TRIGGER ---
-const portfolioSections = document.querySelectorAll('.portfolio-section');
+// Dynamic Title Rotation Engine
+const titles = [
+    "Application Engineer & Network Topologist",
+    "Solutions Architect & Network Infrastructure Engineer",
+    "Full-Stack Application Developer & Core Network Operator"
+];
 
-function evalScrollTrigger() {
-    portfolioSections.forEach(sec => {
-        const currentScroll = window.scrollY;
-        const optimizedTriggerOffset = sec.offsetTop - 580; 
-        if (currentScroll > optimizedTriggerOffset) {
-            sec.classList.add('visible');
-        }
-    });
+let titleIndex = 0;
+let charIndex = 0;
+let isDeleting = false;
+const targetElement = document.getElementById("dynamic-title");
+const typingSpeed = 90;   
+const erasingSpeed = 45;   
+const delayBetween = 2200; 
+
+function typeEffect() {
+    if (!targetElement) return;
+    
+    const currentTitle = titles[titleIndex];
+    
+    if (isDeleting) {
+        targetElement.textContent = currentTitle.substring(0, charIndex - 1);
+        charIndex--;
+    } else {
+        targetElement.textContent = currentTitle.substring(0, charIndex + 1);
+        charIndex++;
+    }
+
+    if (!isDeleting && charIndex === currentTitle.length) {
+        isDeleting = true;
+        setTimeout(typeEffect, delayBetween);
+    } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        titleIndex = (titleIndex + 1) % titles.length;
+        setTimeout(typeEffect, 400);
+    } else {
+        setTimeout(typeEffect, isDeleting ? erasingSpeed : typingSpeed);
+    }
 }
 
-window.addEventListener('scroll', evalScrollTrigger);
-window.addEventListener('DOMContentLoaded', evalScrollTrigger);
+// Initialize typing rotation upon DOM load
+document.addEventListener("DOMContentLoaded", () => {
+    if (targetElement) {
+        setTimeout(typeEffect, 500);
+    }
+});
